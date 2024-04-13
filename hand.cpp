@@ -29,8 +29,8 @@ Hand::Hand(const Hand& rhs){
     numCardsInHand =rhs.numCardsInHand;
     if(rhs.firstCard == nullptr){
         firstCard = lastCard = nullptr;
-        return;
-    }
+        
+    }else{
     Card* temp = rhs.firstCard;
     firstCard = lastCard = new Card;
     firstCard->setValue(temp->getValue());
@@ -43,6 +43,7 @@ Hand::Hand(const Hand& rhs){
         lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
+    }
     }
 }
 
@@ -132,8 +133,7 @@ Hand Hand::operator=(const Hand& rhs){
     numCardsInHand =rhs.numCardsInHand;
     if(rhs.firstCard == nullptr){
         firstCard = lastCard = nullptr;
-        return;
-    }
+    }else{
     Card* temp = rhs.firstCard;
     firstCard = lastCard = new Card;
     firstCard->setValue(temp->getValue());
@@ -147,6 +147,6 @@ Hand Hand::operator=(const Hand& rhs){
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }
-
+    }
     return *this; 
 }
