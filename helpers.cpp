@@ -1,5 +1,4 @@
 #include "helpers.h"
-#include "hand.h"
 #include <random>
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
