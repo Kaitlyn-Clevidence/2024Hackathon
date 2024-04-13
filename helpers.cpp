@@ -6,6 +6,20 @@ void drawCard(Hand current, Hand available){
 }
 
 //specialty cards 
+void checkSpecialtyCards(Card c, Hand opposite, Hand available){
+    if(c == wildvalues){
+        wild();
+    }
+    if(c == skipvalues || c == reversevalues){
+        skip(opposite);
+    }
+    if(c = p2values){
+        plus2(opposite, available);
+    }
+    if(c == wildp4values){
+        wildPlus4(opposite, available);
+    }
+}
 void wild(){
     //prompt for color 
     char choice;
@@ -25,16 +39,17 @@ void wild(){
     if(choice == 'y' || choice == 'Y'){
         //displayCard()//blank yellow card value 
     }
-    //change display card to just a solid color card of their choice 
     //change validation 
 
 }
+ 
+//wildComputer()//must pick random color;
 
 void plus2(Hand h, Hand a){
     drawCard(h, a );
     drawCard(h, a);
 }
-void wildPlus4(Hand c, Hand a, Hand other){
+void wildPlus4(Hand other, Hand a){
     drawCard(other, a);
     drawCard(other, a);    
     drawCard(other, a);
@@ -42,8 +57,34 @@ void wildPlus4(Hand c, Hand a, Hand other){
     wild();
 }
 
+void playerTurn(Hand p, Hand discard, Hand available){
+    Card* temp = p.getFirstCard();
+    Card* test = discard.getLastCard();
+    for(int i = 0; i < p.getNumCardsInHand(); i++){
+        if(validateCard(test, temp)){//test if any cards in the hand are valid 
+            int choice;
+            //displayplayerHand
+            do{
+                cout<<"Which card would you like to play? ";
+                cin>>choice;
+            }while(choice<1 || choice>p.getNumCardsInHand());
+            //getCardatIndex
+            if(validateCard())
+            break;
+
+        }
+    }
+    drawCard(p, available);
+}
+    //validate card
+        //if invalid, prompt again
+    //check if special card
+        //if special call according special function (skip&reverse have same function)
+    //playCard()
+    - show the player their hand and allow them to pick one of their cards (ask for input of a character relating to each card) 
+    - calls displayplayerhand and validate card and deletecardfromhand
 /*
-playCard()
+playCard(card )
     //display chosen card
     //add chosen card to end of discard hand 
     //delete chosen card from the hand played from 
@@ -51,7 +92,8 @@ displayPlayerHand()
     //loop through player cards and display each of them side by side 
 shuffleCards()
     //oren is working on it 
-playerTurn() 
+//playerTurn() 
+    for(int i )
     //check if player has any valid cards (loop)
         //if not, draw 1 card and switch to computer turn 
     //show player their hand
@@ -70,7 +112,7 @@ computerTurn() -
     //playFunction() 
     //remove the card from the array
     //if no valid card is found, draw 1 card and switch turns 
-bool validateCard(lastCard)
+bool validateCard(lastCard, chosenCard)
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
 
 
@@ -83,18 +125,8 @@ specialCards(Card){
         plus 2()
     if card == wildPlus4 values
 }
-some functionality for specialty cards
 
 skip()
     whoever is playing plays again
-plus2() 
-    drawCard(other player hand)
-    drawCard(other player hand)
-wildPlus4()
-    drawCard(other player hand)
-    drawCard(other player hand)
-    drawCard(other player hand)
-    drawCard(other player hand)
-    wild()
 
 */

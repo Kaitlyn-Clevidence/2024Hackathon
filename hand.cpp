@@ -78,8 +78,43 @@ void Hand::addCardToHand(Card c){
     numCardsInHand++;
 }
 void Hand::deleteCardFromHand(int i){ 
-    //going to have to be at specific index of the card picked by the user 
-    //issue with that is that i am not sure how to get the song at that index without truncating the playlist 
+    if(i < 0 || i>= numCardsInHand){
+        cout<<"Index out of bounds"<<endl;
+        return;
+    }
+    if(i == 0){
+        if(firstCard==nullptr){
+            return;
+        }
+        else if(firstCard->getNextCard() == nullptr){
+            delete firstCard;
+            firstCard = lastCard = nullptr;
+            numCardsInHand--;
+            return;
+        }
+        else{
+            Card* temp = firstCard;
+            firstCard = firstCard->getNextCard();
+            delete temp;
+            numCardsInHand--;
+        }
+        return;
+    }
+
+    //test if getting song from index
+        if(index == i-1){
+            break;
+        }
+        current = current->getNextCard();
+        index++;
+    }
+    Card* oneBefore = //getCardatIndex(i-1)
+    Card* remove = oneBefore->getNextCard();
+    oneBefore->setNextCard(remove->getNextCard());
+    lastCard->setNextCard(nullptr);
+    remove = nullptr;
+    delete remove;
+    numCardsInHand--;
 }
 
 Hand::~Hand(){
