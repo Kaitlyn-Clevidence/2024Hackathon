@@ -8,6 +8,7 @@ class Card{
     public:
         Card();
         Card(string);
+        Card(string, Card*);
         Card(const Card&);
         
         void setNextCard(Card*);
@@ -15,6 +16,6 @@ class Card{
 
         void setValue(string);
         string& getValue();
-
+        Card operator=(const Card& rhs);
         void displayACard(int,int); // calls Oren's graphics 
 };

@@ -37,8 +37,11 @@ void shuffleCards(Hand& target){
     RANDOIMIZE(target);
 }
 void drawCard(Hand current, Hand available){
+    cout<<"Adding card"<<endl;
     current.addCardToHand(*available.getFirstCard());
+    cout<<"card added. deleting card"<<endl;
     available.deleteCardFromHand(0);
+    cout<<"card deleted"<<endl;
 }
 bool validateCard(Card* lastCard, Card* chosenCard){
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
@@ -261,10 +264,11 @@ void displayPlayerHand(Hand hand){
     Card* currentCard = hand.getFirstCard();
     int location=0;
     while(currentCard != nullptr){
-        currentCard -> displayACard(28,location*5+3);
-        currentCard = currentCard -> getNextCard();
+        currentCard->displayACard(28,location*5+3);
+        currentCard = currentCard->getNextCard();
     }
 }
+
 bool unoCalled(int numCards, bool isUnoCalled, Hand p, Hand available){
     if(numCards == 1){
         clock_t start = clock();

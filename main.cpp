@@ -2,7 +2,7 @@
 
 int main(){
     Hand available, discard, player, computer;
-    int turn =0;
+    int turn = 0;
     bool win;
     char userChoice;
 
@@ -13,62 +13,52 @@ int main(){
     
     cout << "UNO" << endl;
     do{
-        cout << "Do you want to play a game (y/n)? " << endl;
+        cout << "Do you want to play a game (y/n)? ";
         cin >> userChoice;
     }while(userChoice != 'y' && userChoice != 'Y' && userChoice != 'N' && userChoice != 'n');
     if(userChoice == 'n' || userChoice == 'N'){
         return 0;
     }
 
-    cout<<"1"<<endl;
     //Populate the available hand
     int strings[108];
-    cout<<"2"<<endl;
     int n=0;
-    cout<<"3"<<endl;
     for(int i=0;i<1;i++){
-        cout<<"4"<<endl;
         for(int j=0;j<4;j++){
-            cout<<"5"<<endl;
             strings[n]=(i*4+j);n++;
         }
     }
-    cout<<"6"<<endl;
     for(int i=1;i<11;i++){
-            cout<<"7"<<endl;
-
         for(int j=0;j<4;j++){
-                cout<<"8"<<endl;
-
             strings[n]=(i*4+j);strings[n+1]=(i*4+j);n+=2;
         }
     }
-        cout<<"9"<<endl;
 
     for(int i=11;i<16;i++){
-            cout<<"10"<<endl;
-
         for(int j=0;j<4;j++){
-                cout<<"11"<<endl;
-
             strings[n]=(i*4+j);n++;
         }
     }
-        cout<<"12"<<endl;
 
     RANDOIMIZE(strings,104);
-    cout<<"ugh"<<endl;
     //actually input into the hand 
     for(int i = 0; i < 104; i++){
-        Card temp(to_string(strings[i]));
+        string values = to_string(strings[i]);
+        Card temp(values);
         available.addCardToHand(temp);
     }
     //Add 7 cards to both the player and computer hands
     for(int j = 0; j<7;j++){
+        cout<<"player"<<endl;
         drawCard(player, available);
+        cout<<"Computer"<<endl;
         drawCard(computer, available);
     }
     //Game logic and stuff
+    cout<<"can we get this far"<<endl;
+    system("clear");
+    cout<<"Rules: "<<endl;
+
     do{
         isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
         if(turn%2==1){

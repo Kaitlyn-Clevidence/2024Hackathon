@@ -1,13 +1,19 @@
 #include "card.h"
 extern void dispCard(string,int,int);
 Card::Card(){
-    value = 'n'; //n for none
+    value = "none"; //n for none
+    nextCard = nullptr;
+}
+Card::Card(string c, Card* n){
+    value = c;
+    nextCard = n;
 }
 Card::Card(string c){
     value = c;
 }
 Card::Card(const Card& rhs){
     value = rhs.value;
+    nextCard = rhs.nextCard;
 }
 void Card::setNextCard(Card* c){
     nextCard = c;
@@ -23,4 +29,9 @@ string& Card::getValue(){
 }
 void Card::displayACard(int x, int y){
     dispCard(value,x,y);
+}
+Card Card::operator=(const Card& rhs){
+    value = rhs.value;
+    nextCard = rhs.nextCard;
+    return *this;
 }
