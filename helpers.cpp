@@ -53,23 +53,29 @@ void wild(){
         cin>>choice;
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
+        Card temp("100");
+        displayCard(temp);
         //displayCard()//blank red card value 
     }
     if(choice == 'b' || choice == 'B'){
+        Card temp("101");
+        displayCard(temp);
         //displayCard()//blank blue card value 
     }
     if(choice == 'g' || choice == 'G'){
+        Card temp("102");
+        displayCard(temp);
         //displayCard()//blank green card value 
     }
     if(choice == 'y' || choice == 'Y'){
+        Card temp("103");
+        displayCard(temp);
         //displayCard()//blank yellow card value 
     }
     //change validation 
 
 }
  
-//wildComputer()//must pick random color;
-
 void plus2(Hand h, Hand a){
     drawCard(h, a );
     drawCard(h, a);
@@ -131,14 +137,6 @@ void computerTurn(Hand c, Hand nc, Hand discard, Hand available){
     drawCard(c, available);
 }  
 
-/*
-shuffleCards()
-    //oren is working on it 
-
-skip()
-    whoever is playing plays again
-*/
-
 void skip(opposite){
 
 }        
@@ -152,16 +150,24 @@ void wildComputer(){
     int randomNumber = dis(gen);
             
     if(choice == '1'){
-        //displayCard()//blank red card value 
+        Card temp("100");
+        displayCard(temp);
+        //blank red card value 
     }
     if(choice == '2'){
-        //displayCard()//blank blue card value 
+        Card temp("101");
+        displayCard(temp);
+        //blank blue card value 
     }
     if(choice == '3'){
-        //displayCard()//blank green card value 
+        Card temp("102");
+        displayCard(temp);
+        //blank green card value 
     }
     if(choice == '4'){
-        //displayCard()//blank yellow card value 
+        Card temp("103");
+        displayCard(temp);
+        //blank yellow card value 
     }
 }
 void wildPlus4Computer(Hand opposite, Hand available){
@@ -192,12 +198,10 @@ bool checkDeck(Hand available, Hand discard){
         return false;
     }
     return true;
-
 }
 
 void playCard(Hand hand, Hand discard, int choice){
     //display chosen card
-
     discard.addCardToHand(hand.getCardatIndex(choice - 1));
     hand.deleteCardFromHand(hand.getCardatIndex(choice - 1));
 }
