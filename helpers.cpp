@@ -279,7 +279,7 @@ bool unoCalled(int numCards, bool isUnoCalled, Hand p, Hand available){
             isUnoCalled = true;
             cout << "You didn't say you have uno!!" << endl;
             for (int i = 0; i < 4; i++) {
-                drawCard(playerHand, availableCards);
+                drawCard(p, available);
             }
         }
     }
