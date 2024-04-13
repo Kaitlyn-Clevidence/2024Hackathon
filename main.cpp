@@ -1,8 +1,13 @@
 int main(){
-    bool win;
-    int turn = 0;
+    Hand available, discard, player, computer;
+    int userChoice;
+    cout << "UNO" << endl;
     do{
-        
-    }while(!win);
+        cout << "Do you want to play a game (y/n)? " << endl;
+        cin >> userChoice;
+    }while(userChoice != 'y' && userChoice != 'n');
 
+    //Populate the available hand
+    //Add 7 cards to both the player and computer hands
+    //Game logic and stuff
 }
