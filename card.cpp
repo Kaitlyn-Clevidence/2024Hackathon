@@ -1,5 +1,5 @@
 #include "card.h"
-extern void displayCard(string,int,int);
+extern void dispCard(string,int,int);
 Card::Card(){
     value = 'n'; //n for none
 }
@@ -22,5 +22,5 @@ string& Card::getValue(){
     return value;
 }
 void Card::displayACard(int x, int y){
-    displayCard(value,x,y);
+    dispCard(value,x,y);
 }
