@@ -8,7 +8,6 @@ class Card{
     public:
         Card();
         Card(string);
-        Card(string, Card*);
         Card(const Card&);
         
         void setNextCard(Card*);

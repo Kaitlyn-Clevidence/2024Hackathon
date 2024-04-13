@@ -4,16 +4,17 @@ Card::Card(){
     value = "none"; //n for none
     nextCard = nullptr;
 }
-Card::Card(string c, Card* n){
-    value = c;
-    nextCard = n;
-}
 Card::Card(string c){
     value = c;
 }
 Card::Card(const Card& rhs){
     value = rhs.value;
-    nextCard = rhs.nextCard;
+    if(rhs.nextCard != nullptr){
+        nextCard = new Card(*(rhs.nextCard));
+    }
+    else{
+        nextCard = nullptr;
+    }
 }
 void Card::setNextCard(Card* c){
     nextCard = c;
@@ -31,7 +32,15 @@ void Card::displayACard(int x, int y){
     dispCard(value,x,y);
 }
 Card Card::operator=(const Card& rhs){
+    if(this == &rhs){
+        return *this;
+    }
     value = rhs.value;
-    nextCard = rhs.nextCard;
+    if(rhs.nextCard != nullptr){
+        nextCard = new Card(*(rhs.nextCard));
+    }
+    else{
+        nextCard = nullptr;
+    }
     return *this;
 }
