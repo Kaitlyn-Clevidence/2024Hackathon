@@ -1,5 +1,4 @@
-#include "hand.h"
-#include <random>
+#include "helpers.h"
 
 void drawCard(Hand current, Hand available){
     current.addCardToHand(*available.getFirstCard());
