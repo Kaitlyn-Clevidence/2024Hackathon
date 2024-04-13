@@ -139,7 +139,7 @@ void playCard(Hand hand, Hand discard, int choice){
     hand.deleteCardFromHand(hand.getCardatIndex(choice - 1));
 }
 
-void playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn){
+bool playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn){
     Card* temp = p.getFirstCard();
     Card* test = discard.getLastCard();
     for(int i = 0; i < p.getNumCardsInHand(); i++){
@@ -150,19 +150,26 @@ void playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn){
                 cout<<"Which card would you like to play? ";
                 cin>>choice;
             }while(choice<1 || choice>p.getNumCardsInHand());
-            temp = p.getCardAtIndex(choice-1);
-            if(validateCard(test, temp)){
-                if(!checkSpecialtyCardsPlayer(*temp, np, available, turn)){
+            Card merp = p.getCardAtIndex(choice-1);
+            Card* merpTwo = &merp;
+            if(validateCard(test, merpTwo)){
+                if(!checkSpecialtyCardsPlayer(*merpTwo, np, available, turn)){
                     playCard(p, discard, choice);
                 }
+            }
+            turn++;
+            if(p.getNumCardsInHand() == 0){
+                return true;
             }
             break;
         }
     }
     drawCard(p, available);
+    turn++;
+    return false;
 }
 
-void computerTurn(Hand c, Hand nc, Hand discard, Hand available){
+bool computerTurn(Hand c, Hand nc, Hand discard, Hand available, int turn){
     Card* temp = c.getFirstCard();
     Card* test = discard.getLastCard();
     for(int i = 0; i < c.getNumCardsInHand(); i++){
@@ -176,16 +183,23 @@ void computerTurn(Hand c, Hand nc, Hand discard, Hand available){
             // Generate a random number
             int randomNumber = dis(gen);
             
-            temp = c.getCardAtIndex(randomNumber-1);
-            if(validateCard(test, temp)){
-                if(!checkSpecialtyCardsComputer(*temp, nc, available, turn)){
+            Card merp = c.getCardAtIndex(randomNumber-1);
+            Card* merpTwo = &merp;
+            if(validateCard(test, merpTwo)){
+                if(!checkSpecialtyCardsComputer(*merpTwo, nc, available, turn)){
                     playCard(c, discard, randomNumber);
                 }
             }
+            if(c.getNumCardsInHand() == 0){
+                return true;
+            }
+            turn++;
             break;
         }
     }
     drawCard(c, available);
+    turn++;
+    return false;
 }  
 
 int skip(int turn){
