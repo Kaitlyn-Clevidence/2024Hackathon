@@ -4,10 +4,8 @@
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
 
-void RANDOIMIZE(Hand& target){
-    RANDOIMIZE(target.getFirstCard());
-};
-void RANDOIMIZE(const Card* start){
+
+void RANDOIMIZE(Card* start){
     Card* temp = start;
     int num=0;
     string values[200];
@@ -18,13 +16,16 @@ void RANDOIMIZE(const Card* start){
     }
     RANDOIMIZE(values,num);
     num=0;
-    string values[200];
     while(temp!=nullptr){
         temp->setValue(values[num]);
         num++;
         temp=temp->getNextCard();
     }
     
+}
+
+void RANDOIMIZE(Hand& target){
+    RANDOIMIZE(target.getFirstCard());
 }
 void shuffleCards(Hand& target){
     RANDOIMIZE(target);
@@ -42,25 +43,10 @@ bool validateCard(Card* lastCard, Card* chosenCard){
 }
 
 //specialty cards 
-bool checkSpecialtyCardsPlayer(Card c, Hand opposite, Hand available, int turn){
-    if(c.getValue()[2] == 'Y'){
-        wild();
-        return true;
-    }
-    if(c.getValue()[2] == 'S' || c.getValue()[2] == 'R'){
-        skip(turn);
-        return true;
-    }
-    if(c.getValue()[2] = '+'){
-        plus2(opposite, available);
-        return true;
-    }
-    if(c.getValue()[2] == 'W'){
-        wildPlus4(opposite, available);
-        return true;
-    }
-    return false;
-}
+
+int skip(int turn){
+    return turn + 1;
+}        
 void wildComputer(){
     char choice;
     random_device rd;
@@ -91,33 +77,6 @@ void wildComputer(){
         //blank yellow card value 
     }
 }
-void wildPlus4Computer(Hand opposite, Hand available){
-    drawCard(opposite, available);
-    drawCard(opposite, available);
-    drawCard(opposite, available);
-    drawCard(opposite, available);
-    wildComputer();
-}
-bool checkSpecialtyCardsComputer(Card c, Hand opposite, Hand available, int turn ){
-    if(c.getValue()[2] == 'Y'){
-        wildComputer();
-        return true;
-    }
-    if(c.getValue()[2] == 'S' || c.getValue()[2] == 'R'){
-        skip(turn);
-        return true;
-    }
-    if(c.getValue()[2] = '+'){
-        plus2(opposite, available);
-        return true;
-    }
-    if(c.getValue()[2] == 'W'){
-        wildPlus4Computer(opposite, available);
-        return true;
-    }
-    return false;
-}
-
 void wild(){
     //prompt for color 
     char choice;
@@ -146,7 +105,6 @@ void wild(){
         //blank yellow card value 
     }
     //change validation 
-
 }
  
 void plus2(Hand h, Hand a){
@@ -159,6 +117,53 @@ void wildPlus4(Hand other, Hand a){
     drawCard(other, a);
     drawCard(other, a);
     wild();
+}
+
+void wildPlus4Computer(Hand opposite, Hand available){
+    drawCard(opposite, available);
+    drawCard(opposite, available);
+    drawCard(opposite, available);
+    drawCard(opposite, available);
+    wildComputer();
+}
+bool checkSpecialtyCardsPlayer(Card c, Hand opposite, Hand available, int turn){
+    if(c.getValue()[2] == 'Y'){
+        wild();
+        return true;
+    }
+    if(c.getValue()[2] == 'S' || c.getValue()[2] == 'R'){
+        skip(turn);
+        return true;
+    }
+    if(c.getValue()[2] = '+'){
+        plus2(opposite, available);
+        return true;
+    }
+    if(c.getValue()[2] == 'W'){
+        wildPlus4(opposite, available);
+        return true;
+    }
+    return false;
+}
+
+bool checkSpecialtyCardsComputer(Card c, Hand opposite, Hand available, int turn ){
+    if(c.getValue()[2] == 'Y'){
+        wildComputer();
+        return true;
+    }
+    if(c.getValue()[2] == 'S' || c.getValue()[2] == 'R'){
+        skip(turn);
+        return true;
+    }
+    if(c.getValue()[2] = '+'){
+        plus2(opposite, available);
+        return true;
+    }
+    if(c.getValue()[2] == 'W'){
+        wildPlus4Computer(opposite, available);
+        return true;
+    }
+    return false;
 }
 
 void playCard(Hand hand, Hand discard, int choice){
@@ -233,16 +238,12 @@ bool computerTurn(Hand c, Hand nc, Hand discard, Hand available, int turn){
     return false;
 }  
 
-int skip(int turn){
-    return turn + 1;
-}        
-
 bool checkDeck(Hand available, Hand discard){
     // check if cards are left in available hand
     // if empty shuffle display hand
     // display hand becomes available hand
     if(available.getNumCardsInHand() == 0){
-        discard = discard.shuffleCards();
+        shuffleCards(discard);
         available = discard;
         return false;
     }
@@ -252,8 +253,10 @@ bool checkDeck(Hand available, Hand discard){
 void displayPlayerHand(Hand hand){
     //loop through player cards and display each of them side by side 
     Card* currentCard = hand.getFirstCard();
+    int alreadyDisplayed = 0;
     while(currentCard != nullptr){
-        currentCard -> displayACard();
+        currentCard -> displayACard(24,alreadyDisplayed*5);
         currentCard = currentCard -> getNextCard();
+        alreadyDisplayed++;
     }
 }
