@@ -37,6 +37,10 @@ int main(){
         available.addCardToHand(temp);
     }
     //Add 7 cards to both the player and computer hands
+    for(int j = 0; j<7;j++){
+        drawCard(player, available);
+        drawCard(computer, available);
+    }
     //Game logic and stuff
     do{
         if(turn%2==1){
