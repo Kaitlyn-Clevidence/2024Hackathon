@@ -81,15 +81,40 @@ void playerTurn(Hand p, Hand discard, Hand available){
     //check if special card
         //if special call according special function (skip&reverse have same function)
     //playCard()
-    - show the player their hand and allow them to pick one of their cards (ask for input of a character relating to each card) 
-    - calls displayplayerhand and validate card and deletecardfromhand
-/*
-playCard(card )
+    //show the player their hand and allow them to pick one of their cards (ask for input of a character relating to each card) 
+    //calls displayplayerhand and validate card and deletecardfromhand
+void playCard(Hand hand, Hand discard){
     //display chosen card
     //add chosen card to end of discard hand 
-    //delete chosen card from the hand played from 
-displayPlayerHand()
+    //delete chosen card from the hand played from
+    int cardChoice;
+    displayPlayerHand(hand);
+    do{
+        cout << "Pick one of your cards to play: " << endl;
+        cin >> cardChoice;
+
+        if(validateCard(discard.getLastCard() ,hand.getCardatIndex(userChoice - 1))){
+        discard.addCardToHand(hand.getCardatIndex(userChoice - 1));
+        hand.deleteCardFromHand(hand.getCardatIndex(userChoice - 1));
+        }
+        else{
+        cout << "Invalid card. Choose again." << endl;
+        }
+    }while(cardChoice < 0 && cardChoice > hand.getNumCardsInHand());
+    
+}
+
+void displayPlayerHand(Hand hand){
     //loop through player cards and display each of them side by side 
+    Card* currentCard = hand.getFirstCard();
+    while(currentCard != nullptr){
+        currentCard -> displayCard();
+        currentCard = currentCard -> getNextCard();
+    }
+}
+
+
+/*
 shuffleCards()
     //oren is working on it 
 //playerTurn() 
