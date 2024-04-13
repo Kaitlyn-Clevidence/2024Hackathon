@@ -1,5 +1,4 @@
 #include "helpers.cpp"
-#include "displayCard.cpp"
 
 int main(){
     Hand available, discard, player, computer;
@@ -7,9 +6,12 @@ int main(){
     bool win;
     
     cout << "UNO" << endl;
+    char temp;
     do{
         cout << "Do you want to play a game (y/n)? " << endl;
-        cin >> userChoice;
+
+        cin >> temp;
+        userChoice=temp;
     }while(userChoice != 'y' && userChoice != 'n');
 
     //Populate the available hand
