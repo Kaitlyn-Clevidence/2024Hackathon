@@ -2,9 +2,6 @@
 #include <random>
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
-void RANDOIMIZE(Hand& target){
-    RANDOIMIZE(target.getFirstCard());
-};
 void RANDOIMIZE(const Card* start){
     Card* temp=start;
     int num=0;
@@ -24,9 +21,10 @@ void RANDOIMIZE(const Card* start){
     }
     
 }
-void shuffleCards(Hand& target){
-    RANDOIMIZE(target);
-}
+
+void RANDOIMIZE(Hand& target){
+    RANDOIMIZE(target.getFirstCard());
+};
 void drawCard(Hand current, Hand available){
     current.addCardToHand(*available.getFirstCard());
     available.deleteCardFromHand(0);
