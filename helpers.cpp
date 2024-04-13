@@ -32,9 +32,11 @@ void displayPlayerHand(Hand& hand){
     Card* currentCard = hand.getFirstCard();
     int location=0;
     while(currentCard != nullptr){
-        currentCard->displayACard(28,location*5+3);
+        currentCard->displayACard(25,location*5+3);
         currentCard = currentCard->getNextCard();
+        location++;
     }
+    cout<<"\e[m\e[31;1H";
 }
 void wild();
 void plus2(Hand& h, Hand& a);
@@ -195,10 +197,15 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
     cout<<"Player turn"<<endl;
     Card* temp = p.getFirstCard();
     Card* test = discard.getLastCard();
+
+    Card* temp2=p.getFirstCard();
+    displayPlayerHand(p);
+    
+
     for(int i = 0; i < p.getNumCardsInHand(); i++){
         //update temp as you go 
         if(validateCard(test, temp)){//test if any cards in the hand are valid 
-            cout <<"past validate card"<<endl;
+            cout <<"past validate card";
             int choice;
             displayPlayerHand(p);
             do{
