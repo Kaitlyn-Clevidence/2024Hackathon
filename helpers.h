@@ -15,7 +15,7 @@ void playCard(Hand hand, Hand discard, int choice);
 void playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn);
 void computerTurn(Hand c, Hand nc, Hand discard, Hand available);
 int skip(int turn);     
-void shuffleCards();
+void shuffleCards(Hand&);
 bool checkDeck(Hand available, Hand discard);
 void displayPlayerHand(Hand hand);
 
