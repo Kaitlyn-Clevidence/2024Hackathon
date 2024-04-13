@@ -1,8 +1,10 @@
 #include "helpers.cpp"
+#include "displayCard.cpp"
 
 int main(){
     Hand available, discard, player, computer;
-    int userChoice;
+    int userChoice, turn =0;
+    bool win;
     
     cout << "UNO" << endl;
     do{
@@ -29,14 +31,11 @@ int main(){
         }
     }
     RANDOIMIZE(strings,104);
-    /*for(int i=0;i<27;i++){
-        for(int j=0;j<4;j++){
-            displayCard((strings[i*4+j]),5*j+2,5*i+2);
-        }
-    }*/
-    cardStack(5,5,0);
-    cout<<"\e[25;25H";
-
+    //actually input into the hand 
+    for(int i = 0; i < 108; i++){
+        Card temp(to_string(strings[i]));
+        available.addCardToHand(temp);
+    }
     //Add 7 cards to both the player and computer hands
     //Game logic and stuff
     do{
@@ -47,4 +46,3 @@ int main(){
             win = computerTurn(computer, player, discard, available, turn);
         }
     }while(!win);
-}
