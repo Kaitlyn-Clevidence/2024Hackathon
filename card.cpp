@@ -1,5 +1,5 @@
 #include "card.h"
-
+extern void displayCard(string,int,int);
 Card::Card(){
     value = 'n'; //n for none
 }
@@ -21,6 +21,6 @@ void Card::setValue(string n){
 string Card::getValue(){
     return value;
 }
-void Card::displayCard(){
-    // calls Oren's graphics 
+void Card::displayCard(int x, int y){
+    displayCard(value,x,y);
 }
