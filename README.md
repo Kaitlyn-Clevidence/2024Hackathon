@@ -2,20 +2,20 @@
 
 working - logic
 Red
-2 - 0, skip, reverse, +2
-4 - 1, 2, 3, 4, 5, 6, 7, 8, 9
+1 - 0, skip, reverse, +2
+2 - 1, 2, 3, 4, 5, 6, 7, 8, 9
 Blue
-2 - 0, skip, reverse, +2
-4 - 1, 2, 3, 4, 5, 6, 7, 8, 9
+1 - 0, skip, reverse, +2
+2 - 1, 2, 3, 4, 5, 6, 7, 8, 9
 Yellow
-2 - 0, skip, reverse, +2
-4 - 1, 2, 3, 4, 5, 6, 7, 8, 9
+1 - 0, skip, reverse, +2
+2 - 1, 2, 3, 4, 5, 6, 7, 8, 9
 Green
-2 - 0, skip, reverse, +2
-4 - 1, 2, 3, 4, 5, 6, 7, 8, 9
+1 - 0, skip, reverse, +2
+2 - 1, 2, 3, 4, 5, 6, 7, 8, 9
 
-8 wild cards
-8 +4 wild cards 
+4 wild cards
+4 +4 wild cards 
 
 when a card is played, the next card either has to be the same number, color, or a wild card
 1 player playing the game versus the computer 
