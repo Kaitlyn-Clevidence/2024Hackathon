@@ -132,37 +132,69 @@ void computerTurn(Hand c, Hand nc, Hand discard, Hand available){
 }  
 
 /*
-computerTurn() - 
-    //loop through computer hand until a valid (validateCard) is found,
-    //check if the card is special
-        //if so, call according function
-    //playFunction() 
-    //remove the card from the array
-    //if no valid card is found, draw 1 card and switch turns 
-*/
+displayPlayerHand()
+    //loop through player cards and display each of them side by side - need values 
+shuffleCards()
+    //oren is working on it 
 
 bool validateCard(lastCard, chosenCard)
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
-    if(lastCard.getValue()[1] == chosenCard.getValue[1] || lastCard.getValue()[2] == chosenCard.getValue()[2] || chosenCard.getValue()[2] == 'W' || chosenCard.getValue()[2] == 'Y'){
-        return true;
-    }
-    return false;
-}
-/*
-specialCards(Card){
-    if Card == wild values
-        wild()        
-    if card == skip or reverse values
-        skip()
-    if card == plus 2 values
-        plus 2()
-    if card == wildPlus4 values
-}
 
 skip()
     whoever is playing plays again
 
 */
+
+void skip(opposite){
+
+}        
+void wildComputer(){
+    char choice;
+    random_device rd;
+    mt19937 gen(rd());
+    // Define the distribution
+    uniform_int_distribution<> dis(1, 4);
+    // Generate a random number
+    int randomNumber = dis(gen);
+            
+    if(choice == '1'){
+        //displayCard()//blank red card value 
+    }
+    if(choice == '2'){
+        //displayCard()//blank blue card value 
+    }
+    if(choice == '3'){
+        //displayCard()//blank green card value 
+    }
+    if(choice == '4'){
+        //displayCard()//blank yellow card value 
+    }
+}
+void wildPlus4Computer(Hand opposite, Hand available){
+    drawCard(opposite, available);
+    drawCard(opposite, available);
+    drawCard(opposite, available);
+    drawCard(opposite, available);
+    wildComputer();
+
+}
+bool validateCard(Card lastCard, Card chosenCard)
+    //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
+    if(lastCard.getValue()[1] == chosenCard.getValue()[1] || lastCard.getValue()[2] == chosenCard.getValue()[2] || chosenCard.getValue()[2] == 'W' || chosenCard.getValue()[2] == 'Y'){
+        return true;
+    }
+    return false;
+
+void shuffleCards(){
+    //oren has implementation
+}
+bool checkDeck(){
+
+}
+
+
+
+
 void playCard(Hand hand, Hand discard, int choice){
     //display chosen card
 
