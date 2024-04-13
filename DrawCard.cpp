@@ -125,6 +125,7 @@ void displayCard(char a,char b,int x, int y){
                 case 'W':d=12;break;
                 case 'S':d=13;break;
                 case 'Y':d=14;break;
+		default: d = 15; break;
         }
         displayCard(a+b*4,x,y);
         
