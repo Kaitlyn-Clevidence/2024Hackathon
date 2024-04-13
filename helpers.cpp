@@ -27,7 +27,15 @@ void RANDOIMIZE(Hand& target){
     RANDOIMIZE(target.getFirstCard());
 };
 
-
+void displayPlayerHand(Hand& hand){
+    //loop through player cards and display each of them side by side 
+    Card* currentCard = hand.getFirstCard();
+    int location=0;
+    while(currentCard != nullptr){
+        currentCard->displayACard(28,location*5+3);
+        currentCard = currentCard->getNextCard();
+    }
+}
 void wild();
 void plus2(Hand& h, Hand& a);
 void wildPlus4(Hand& other, Hand& a);
@@ -178,8 +186,8 @@ void wildPlus4(Hand& other, Hand& a){
 }
 
 void playCard(Hand& hand, Hand& discard, int choice){
-    //display chosen card
     discard.addCardToHand(hand.getCardAtIndex(choice - 1));
+    discard.getLastCard()->displayACard(75, 18);
     hand.deleteCardFromHand(choice - 1);
 }
 
@@ -190,9 +198,9 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
     for(int i = 0; i < p.getNumCardsInHand(); i++){
         //update temp as you go 
         if(validateCard(test, temp)){//test if any cards in the hand are valid 
-        cout <<"past validate card"<<endl;
+            cout <<"past validate card"<<endl;
             int choice;
-            //displayplayerHand
+            displayPlayerHand(p);
             do{
                 cout<<"Which card would you like to play? ";
                 cin>>choice;
@@ -265,16 +273,6 @@ bool checkDeck(Hand& available, Hand& discard){
         return false;
     }
     return true;
-}
-
-void displayPlayerHand(Hand& hand){
-    //loop through player cards and display each of them side by side 
-    Card* currentCard = hand.getFirstCard();
-    int location=0;
-    while(currentCard != nullptr){
-        currentCard->displayACard(28,location*5+3);
-        currentCard = currentCard->getNextCard();
-    }
 }
 
 bool unoCalled(int numCards, bool isUnoCalled, Hand& p, Hand& available){
