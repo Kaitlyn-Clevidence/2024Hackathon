@@ -18,7 +18,7 @@ Card* Card::getNextCard(){
 void Card::setValue(string n){
     value = n;
 }
-string Card::getValue(){
+string& Card::getValue(){
     return value;
 }
 void Card::displayCard(int x, int y){
