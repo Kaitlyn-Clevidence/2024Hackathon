@@ -68,4 +68,11 @@ int main(){
             win = computerTurn(computer, player, discard, available, turn);
         }
     }while(!win);
+    if(turn%2 == 0){
+        cout<<"You won! Would you like to play again? ";
+        cin>>userChoice;
+        if(userChoice != 'y' || userChoice != 'Y'){
+            return 0;
+        }
+    }
 }

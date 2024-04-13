@@ -80,10 +80,13 @@ void Hand::addCardToHand(Card c){
 
 Card& Hand::getCardAtIndex(int i){
     Card* temp = firstCard;
-    for(int j = 0; j < i; j++){
-        if(temp!= nullptr){
-            temp = temp->getNextCard();
-        }
+    int count = 0;
+    while(temp!= nullptr && count <i){
+        temp = temp->getNextCard();
+        count++;
+    }
+    if(temp == nullptr){
+        cout<<":("<<endl; 
     }
     return *temp;
 }
@@ -96,34 +99,35 @@ void Hand::deleteCardFromHand(int i){
         if(firstCard->getNextCard() == nullptr){
             delete firstCard;
             firstCard = lastCard = nullptr;
-            numCardsInHand--;
         }
         else{
             Card* temp = firstCard;
             firstCard = firstCard->getNextCard();
             delete temp;
-            numCardsInHand--;
         }
     }
     else{
-        Card oneBefore = getCardAtIndex(i-1);
+        Card& oneBefore = getCardAtIndex(i-1);
         Card* remove = oneBefore.getNextCard();
         oneBefore.setNextCard(remove->getNextCard());
-        lastCard->setNextCard(nullptr);
         delete remove;
-        numCardsInHand--;
+        if(i == numCardsInHand -1){
+            lastCard = &oneBefore;
+        }
     }
+    numCardsInHand--;
 }
 
 Hand::~Hand(){
     Card * temp = firstCard;
     while(temp!=nullptr){
         Card* remove = temp;
-        temp->getNextCard();
+        temp = temp->getNextCard();
         delete remove;
     }
     firstCard = lastCard = nullptr;
 }
+
 Hand Hand::operator=(const Hand& rhs){
     numCardsInHand =rhs.numCardsInHand;
     if(rhs.firstCard == nullptr){
@@ -131,14 +135,14 @@ Hand Hand::operator=(const Hand& rhs){
     }else{
     Card* temp = rhs.firstCard;
     firstCard = lastCard = new Card(*temp);
-    firstCard->setValue(temp->getValue());
+    //firstCard->setValue(temp->getValue());
     firstCard->setNextCard(nullptr);
 
     temp = temp->getNextCard();
     while(temp != nullptr){
         lastCard->setNextCard(new Card(*temp));
         lastCard = lastCard->getNextCard();
-        lastCard->setValue(temp->getValue());
+        //lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }
