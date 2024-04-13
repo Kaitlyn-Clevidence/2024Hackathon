@@ -219,6 +219,9 @@ bool computerTurn(Hand c, Hand nc, Hand discard, Hand available, int turn){
             if(c.getNumCardsInHand() == 0){
                 return true;
             }
+            if(c.getNumCardsInHand() == 1){
+                cout<<"Your opponent has Uno!!"<<endl;
+            }
             turn++;
             break;
         }
