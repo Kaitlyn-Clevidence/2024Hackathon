@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-void displayCardBorder(int x, int y){   
+void dispCardBorder(int x, int y){   
         /*" ___ "
         "/   \"
         "|   |"
@@ -8,8 +8,8 @@ void displayCardBorder(int x, int y){
         printf("\e[m\e[%d;%dH/\e[53m   \e[55m\e[%d;%dH\\\e[%d;%dH|\e[%d;%dH|\e[%d;%dH\\___/",x+1,y,x+1,y+4,x+2,y,x+2,y+4,x+3,y);
 }
 
-void displayCard(int n,int x, int y){
-        displayCardBorder(x,y);
+void dispCard(int n,int x, int y){
+        dispCardBorder(x,y);
         string c;
         switch(n%4){
         case 0:
@@ -100,7 +100,7 @@ void displayCard(int n,int x, int y){
                 break;
         }
 }
-void displayCard(char a,char b,int x, int y){
+void dispCard(char a,char b,int x, int y){
         int c;
         int d;
         switch(a){
@@ -125,9 +125,8 @@ void displayCard(char a,char b,int x, int y){
                 case 'W':d=12;break;
                 case 'S':d=13;break;
                 case 'Y':d=14;break;
-		default: d = 15; break;
         }
-        displayCard(a+b*4,x,y);
+        dispCard(a+b*4,x,y);
         
 }
 string e;
@@ -217,8 +216,8 @@ int* RANDOIMIZE(int value[],const int a){
         return vi;
 
 }
-void displayCard(string s,int x, int y){
-        displayCard(s[0],s[1],x,y);
+void dispCard(string s,int x, int y){
+        dispCard(s[0],s[1],x,y);
 }
 
 
@@ -261,7 +260,7 @@ int main(int argc, char** argv){
     RANDOIMIZE(strings,104);
     for(int i=0;i<27;i++){
         for(int j=0;j<4;j++){
-            displayCard((strings[i*4+j]),5*j+2,5*i+2);
+            dispCard((strings[i*4+j]),5*j+2,5*i+2);
         }
     }
     cardStack(5,5,0);
