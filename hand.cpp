@@ -77,6 +77,15 @@ void Hand::addCardToHand(Card c){
     lastCard->setNextCard(nullptr);
     numCardsInHand++;
 }
+
+Card& Hand::getCardAtIndex(int i){
+    Card* temp = firstCard;
+    for(int j = 0; j < i; j++){
+        temp = temp->getNextCard();
+    }
+    return *temp;
+}
+
 void Hand::deleteCardFromHand(int i){ 
     if(i < 0 || i>= numCardsInHand){
         cout<<"Index out of bounds"<<endl;
@@ -101,16 +110,9 @@ void Hand::deleteCardFromHand(int i){
         return;
     }
 
-    //test if getting song from index
-        if(index == i-1){
-            break;
-        }
-        current = current->getNextCard();
-        index++;
-
-    Card* oneBefore = //getCardatIndex(i-1)
-    Card* remove = oneBefore->getNextCard();
-    oneBefore->setNextCard(remove->getNextCard());
+    Card oneBefore = getCardAtIndex(i-1);
+    Card* remove = oneBefore.getNextCard();
+    oneBefore.setNextCard(remove->getNextCard());
     lastCard->setNextCard(nullptr);
     remove = nullptr;
     delete remove;

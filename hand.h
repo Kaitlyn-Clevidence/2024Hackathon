@@ -17,6 +17,7 @@ class Hand{
         void setLastCard(Card*);
         void setNumCardsInHand(int);
 
+        Card& getCardAtIndex(int i);
         void addCardToHand(Card);
         void deleteCardFromHand(int i);
 

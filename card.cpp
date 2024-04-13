@@ -21,6 +21,6 @@ void Card::setValue(string n){
 string& Card::getValue(){
     return value;
 }
-void Card::displayCard(int x, int y){
+void Card::displayACard(int x, int y){
     displayCard(value,x,y);
 }
