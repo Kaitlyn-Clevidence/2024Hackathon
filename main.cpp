@@ -4,6 +4,11 @@ int main(){
     Hand available, discard, player, computer;
     int userChoice, turn =0;
     bool win;
+
+    int numCards = 1;
+    bool isUnoCalled = false;
+    Hand playerHand;
+    Hand availableCards;
     
     cout << "UNO" << endl;
     char temp;
@@ -45,6 +50,7 @@ int main(){
     }
     //Game logic and stuff
     do{
+        isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
         if(turn%2==1){
             win = playerTurn(player, computer, discard, available, turn);
         }
