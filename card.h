@@ -16,5 +16,5 @@ class Card{
         void setValue(string);
         string getValue();
 
-        void displayCard(); // calls Oren's graphics 
+        void displayCard(int,int); // calls Oren's graphics 
 };

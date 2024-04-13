@@ -14,3 +14,11 @@ int main(){
     //Add 7 cards to both the player and computer hands
     //Game logic and stuff
 }
+int main(){
+    bool win;
+    int turn = 0;
+    do{
+        
+    }while(!win);
+
+}
