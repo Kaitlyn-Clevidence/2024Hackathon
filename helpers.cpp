@@ -189,7 +189,7 @@ void computerTurn(Hand c, Hand nc, Hand discard, Hand available){
 }  
 
 int skip(int turn){
-    return turn-1;
+    return turn + 1;
 }        
 
 
