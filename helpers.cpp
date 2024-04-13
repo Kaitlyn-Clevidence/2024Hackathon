@@ -132,17 +132,11 @@ void computerTurn(Hand c, Hand nc, Hand discard, Hand available){
 }  
 
 /*
-displayPlayerHand()
-    //loop through player cards and display each of them side by side - need values 
 shuffleCards()
     //oren is working on it 
 
-bool validateCard(lastCard, chosenCard)
-    //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
-
 skip()
     whoever is playing plays again
-
 */
 
 void skip(opposite){
@@ -188,12 +182,18 @@ bool validateCard(Card lastCard, Card chosenCard)
 void shuffleCards(){
     //oren has implementation
 }
-bool checkDeck(){
+bool checkDeck(Hand available, Hand discard){
+    // check if cards are left in available hand
+    // if empty shuffle display hand
+    // display hand becomes available hand
+    if(available.getNumCardsInHand() == 0){
+        discard = discard.shuffleCards();
+        available = discard;
+        return false;
+    }
+    return true;
 
 }
-
-
-
 
 void playCard(Hand hand, Hand discard, int choice){
     //display chosen card
