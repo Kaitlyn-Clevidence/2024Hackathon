@@ -2,17 +2,46 @@
 
 void drawCard(Hand current, Hand available){
     current.addCardToHand(*available.getFirstCard());
-    available.setFirstCard(available.getFirstCard()->getNextCard());
-    //definitely a memory leak here - issue tho? 
-    //could also call available.deleteCardFromHand(0);
-    available.setNumCardsInHand(available.getNumCardsInHand() - 1);
+    available.deleteCardFromHand(0);
 }
 
-//drawCard()
-    //take first card of the availible hand and add it to the hand of who ever needs to draw the card 
-    //reset the first card in the availible hand to the next card
-    //delete the previous first card in the availible hand 
-    //decrement the number of cards in the availible hand 
+//specialty cards 
+void wild(){
+    //prompt for color 
+    char choice;
+    do{
+        cout<<"What color would you like to pick? (R/B/G/Y) ";
+        cin>>choice;
+    }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
+    if(choice == 'r' || choice == 'R'){
+        //displayCard()//blank red card value 
+    }
+    if(choice == 'b' || choice == 'B'){
+        //displayCard()//blank blue card value 
+    }
+    if(choice == 'g' || choice == 'G'){
+        //displayCard()//blank green card value 
+    }
+    if(choice == 'y' || choice == 'Y'){
+        //displayCard()//blank yellow card value 
+    }
+    //change display card to just a solid color card of their choice 
+    //change validation 
+
+}
+
+void plus2(Hand h, Hand a){
+    drawCard(h, a );
+    drawCard(h, a);
+}
+void wildPlus4(Hand c, Hand a, Hand other){
+    drawCard(other, a);
+    drawCard(other, a);    
+    drawCard(other, a);
+    drawCard(other, a);
+    wild();
+}
+
 /*
 playCard()
     //display chosen card
@@ -55,10 +84,7 @@ specialCards(Card){
     if card == wildPlus4 values
 }
 some functionality for specialty cards
-wild()
-    prompt for color 
-    change display card to just a solid color card of their choice 
-    change validation 
+
 skip()
     whoever is playing plays again
 plus2() 
