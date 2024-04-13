@@ -14,14 +14,14 @@ Hand::Hand(Card* f, Card* l, int n){
     }
     Card* temp = f;
     firstCard = lastCard = new Card(*temp);
-    //firstCard->setValue(temp->getValue());
+    firstCard->setValue(temp->getValue());
     firstCard->setNextCard(nullptr);
 
     temp = temp->getNextCard();
     while(temp != nullptr){
         lastCard->setNextCard(new Card(*temp));
         lastCard = lastCard->getNextCard();
-        //lastCard->setValue(temp->getValue());
+        lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }
@@ -34,14 +34,14 @@ Hand::Hand(const Hand& rhs){
     }else{
         Card* temp = rhs.firstCard;
         firstCard = lastCard = new Card(*temp);
-        //firstCard->setValue(temp->getValue());
+        firstCard->setValue(temp->getValue());
         firstCard->setNextCard(nullptr);
 
         temp = temp->getNextCard();
         while(temp != nullptr){
             lastCard->setNextCard(new Card(*temp));
             lastCard = lastCard->getNextCard();
-            //lastCard->setValue(temp->getValue());
+            lastCard->setValue(temp->getValue());
             lastCard->setNextCard(nullptr);
             temp = temp->getNextCard();
         }
@@ -135,14 +135,14 @@ Hand Hand::operator=(const Hand& rhs){
     }else{
     Card* temp = rhs.firstCard;
     firstCard = lastCard = new Card(*temp);
-    //firstCard->setValue(temp->getValue());
+    firstCard->setValue(temp->getValue());
     firstCard->setNextCard(nullptr);
 
     temp = temp->getNextCard();
     while(temp != nullptr){
         lastCard->setNextCard(new Card(*temp));
         lastCard = lastCard->getNextCard();
-        //lastCard->setValue(temp->getValue());
+        lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }

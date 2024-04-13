@@ -29,30 +29,36 @@ void RANDOIMIZE(Hand& target){
 
 
 void wild();
-void plus2(Hand h, Hand a);
-void wildPlus4(Hand other, Hand a);
+void plus2(Hand& h, Hand& a);
+void wildPlus4(Hand& other, Hand& a);
 int skip(int turn);
 
 void shuffleCards(Hand& target){
     RANDOIMIZE(target);
 }
-void drawCard(Hand current, Hand available){
-    cout<<"Adding card"<<endl;
+void drawCard(Hand& current, Hand& available){
     current.addCardToHand(*available.getFirstCard());
-    cout<<"card added. deleting card"<<endl;
     available.deleteCardFromHand(0);
-    cout<<"card deleted"<<endl;
 }
 bool validateCard(Card* lastCard, Card* chosenCard){
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
-    if(lastCard->getValue()[1] == chosenCard->getValue()[1] || lastCard->getValue()[2] == chosenCard->getValue()[2] || chosenCard->getValue()[2] == 'W' || chosenCard->getValue()[2] == 'Y'){
+    if(lastCard->getValue()[1] == chosenCard->getValue()[1]){
         return true;
+    }
+    else if(lastCard->getValue()[2] == chosenCard->getValue()[2]){
+        return true;
+    }
+    else if(chosenCard->getValue()[2] == 'W' || chosenCard->getValue()[2] == 'Y'){
+        return true;
+    }
+    else{
+        return false;
     }
     return false;
 }
 
 //specialty cards 
-bool checkSpecialtyCardsPlayer(Card c, Hand opposite, Hand available, int turn){
+bool checkSpecialtyCardsPlayer(Card c, Hand& opposite, Hand& available, int turn){
     if(c.getValue()[2] == 'Y'){
         wild();
         return true;
@@ -101,14 +107,14 @@ void wildComputer(){
         //blank yellow card value 
     }
 }
-void wildPlus4Computer(Hand opposite, Hand available){
+void wildPlus4Computer(Hand& opposite, Hand& available){
     drawCard(opposite, available);
     drawCard(opposite, available);
     drawCard(opposite, available);
     drawCard(opposite, available);
     wildComputer();
 }
-bool checkSpecialtyCardsComputer(Card c, Hand opposite, Hand available, int turn ){
+bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int turn ){
     if(c.getValue()[2] == 'Y'){
         wildComputer();
         return true;
@@ -159,11 +165,11 @@ void wild(){
 
 }
  
-void plus2(Hand h, Hand a){
+void plus2(Hand& h, Hand& a){
     drawCard(h, a );
     drawCard(h, a);
 }
-void wildPlus4(Hand other, Hand a){
+void wildPlus4(Hand& other, Hand& a){
     drawCard(other, a);
     drawCard(other, a);    
     drawCard(other, a);
@@ -171,17 +177,20 @@ void wildPlus4(Hand other, Hand a){
     wild();
 }
 
-void playCard(Hand hand, Hand discard, int choice){
+void playCard(Hand& hand, Hand& discard, int choice){
     //display chosen card
     discard.addCardToHand(hand.getCardAtIndex(choice - 1));
     hand.deleteCardFromHand(choice - 1);
 }
 
-bool playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn){
+bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
+    cout<<"Player turn"<<endl;
     Card* temp = p.getFirstCard();
     Card* test = discard.getLastCard();
     for(int i = 0; i < p.getNumCardsInHand(); i++){
+        //update temp as you go 
         if(validateCard(test, temp)){//test if any cards in the hand are valid 
+        cout <<"past validate card"<<endl;
             int choice;
             //displayplayerHand
             do{
@@ -195,19 +204,19 @@ bool playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn){
                     playCard(p, discard, choice);
                 }
             }
-            turn++;
             if(p.getNumCardsInHand() == 0){
                 return true;
             }
             break;
         }
+        temp = temp->getNextCard();
     }
     drawCard(p, available);
-    turn++;
     return false;
 }
 
-bool computerTurn(Hand c, Hand nc, Hand discard, Hand available, int turn){
+bool computerTurn(Hand& c, Hand& nc, Hand& discard, Hand& available, int turn){
+    cout<<"Computer Turn"<<endl;
     Card* temp = c.getFirstCard();
     Card* test = discard.getLastCard();
     for(int i = 0; i < c.getNumCardsInHand(); i++){
@@ -234,12 +243,11 @@ bool computerTurn(Hand c, Hand nc, Hand discard, Hand available, int turn){
             if(c.getNumCardsInHand() == 1){
                 cout<<"Your opponent has Uno!!"<<endl;
             }
-            turn++;
             break;
         }
+        temp = temp->getNextCard();
     }
     drawCard(c, available);
-    turn++;
     return false;
 }  
 
@@ -247,7 +255,7 @@ int skip(int turn){
     return turn + 1;
 }        
 
-bool checkDeck(Hand available, Hand discard){
+bool checkDeck(Hand& available, Hand& discard){
     // check if cards are left in available hand
     // if empty shuffle display hand
     // display hand becomes available hand
@@ -259,7 +267,7 @@ bool checkDeck(Hand available, Hand discard){
     return true;
 }
 
-void displayPlayerHand(Hand hand){
+void displayPlayerHand(Hand& hand){
     //loop through player cards and display each of them side by side 
     Card* currentCard = hand.getFirstCard();
     int location=0;
@@ -269,7 +277,7 @@ void displayPlayerHand(Hand hand){
     }
 }
 
-bool unoCalled(int numCards, bool isUnoCalled, Hand p, Hand available){
+bool unoCalled(int numCards, bool isUnoCalled, Hand& p, Hand& available){
     if(numCards == 1){
         clock_t start = clock();
         while ((clock() - start) / CLOCKS_PER_SEC < 10 && !isUnoCalled){

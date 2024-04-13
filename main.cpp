@@ -54,21 +54,24 @@ int main(){
         cout<<"Computer"<<endl;
         drawCard(computer, available);
     }
+
+    drawCard(discard, available);
     //Game logic and stuff
-    cout<<"can we get this far"<<endl;
     system("clear");
     cout<<"Rules: "<<endl;
 
     do{
-        isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
-        if(turn%2==1){
+        //isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
+        if(turn%2==0){
             win = playerTurn(player, computer, discard, available, turn);
+            turn++;
         }
-        if(turn%2 == 0){
+        else{
             win = computerTurn(computer, player, discard, available, turn);
+            turn++;
         }
     }while(!win);
-    if(turn%2 == 0){
+    if(turn%2 == 1){
         cout<<"You won! Would you like to play again? ";
         cin>>userChoice;
         if(userChoice != 'y' || userChoice != 'Y'){
