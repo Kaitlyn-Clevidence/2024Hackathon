@@ -50,3 +50,4 @@ int main(){
             win = computerTurn(computer, player, discard, available, turn);
         }
     }while(!win);
+}
