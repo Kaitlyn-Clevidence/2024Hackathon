@@ -1,5 +1,33 @@
 #include "helpers.h"
-
+#include "hand.h"
+#include <random>
+extern string* RANDOIMIZE(string value[],const int a);
+extern int* RANDOIMIZE(int value[],const int a);
+void RANDOIMIZE(Hand& target){
+    RANDOIMIZE(target.getFirstCard());
+};
+void RANDOIMIZE(const Card* start){
+    Card* temp=start;
+    int num=0;
+    string values[200];
+    while(temp!=nullptr){
+        values[num]=temp->getValue();
+        num++;
+        temp=temp->getNextCard();
+    }
+    RANDOIMIZE(values,num);
+    num=0;
+    string values[200];
+    while(temp!=nullptr){
+        temp->setValue(values[num]);
+        num++;
+        temp=temp->getNextCard();
+    }
+    
+}
+void shuffleCards(Hand& target){
+    RANDOIMIZE(target);
+}
 void drawCard(Hand current, Hand available){
     current.addCardToHand(*available.getFirstCard());
     available.deleteCardFromHand(0);
@@ -192,9 +220,6 @@ bool computerTurn(Hand c, Hand nc, Hand discard, Hand available, int turn){
             if(c.getNumCardsInHand() == 0){
                 return true;
             }
-            if(c.getNumCardsInHand() == 1){
-                cout<<"Your opponent has Uno!!"<<endl;
-            }
             turn++;
             break;
         }
@@ -208,10 +233,6 @@ int skip(int turn){
     return turn + 1;
 }        
 
-
-void shuffleCards(){
-    //oren has implementation
-}
 bool checkDeck(Hand available, Hand discard){
     // check if cards are left in available hand
     // if empty shuffle display hand
