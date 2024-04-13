@@ -72,22 +72,22 @@ void wildComputer(){
             
     if(choice == '1'){
         Card temp("R ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank red card value 
     }
     if(choice == '2'){
         Card temp("B ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank blue card value 
     }
     if(choice == '3'){
         Card temp("G ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank green card value 
     }
     if(choice == '4'){
         Card temp("Y ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank yellow card value 
     }
 }
@@ -127,22 +127,22 @@ void wild(){
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
         Card temp("R ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank red card value 
     }
     if(choice == 'b' || choice == 'B'){
         Card temp("B ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank blue card value 
     }
     if(choice == 'g' || choice == 'G'){
         Card temp("G ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank green card value 
     }
     if(choice == 'y' || choice == 'Y'){
         Card temp("Y ");
-        temp.displayCard();
+        temp.displayACard(75, 18);
         //blank yellow card value 
     }
     //change validation 
@@ -253,7 +253,7 @@ void displayPlayerHand(Hand hand){
     //loop through player cards and display each of them side by side 
     Card* currentCard = hand.getFirstCard();
     while(currentCard != nullptr){
-        currentCard -> displayCard();
+        currentCard -> displayACard();
         currentCard = currentCard -> getNextCard();
     }
 }
