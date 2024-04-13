@@ -42,22 +42,22 @@ void wildComputer(){
     int randomNumber = dis(gen);
             
     if(choice == '1'){
-        Card temp("100");
+        Card temp("R ");
         displayCard(temp);
         //blank red card value 
     }
     if(choice == '2'){
-        Card temp("101");
+        Card temp("B ");
         displayCard(temp);
         //blank blue card value 
     }
     if(choice == '3'){
-        Card temp("102");
+        Card temp("G ");
         displayCard(temp);
         //blank green card value 
     }
     if(choice == '4'){
-        Card temp("103");
+        Card temp("Y ");
         displayCard(temp);
         //blank yellow card value 
     }
@@ -97,22 +97,22 @@ void wild(){
         cin>>choice;
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
-        Card temp("100");
+        Card temp("R ");
         displayCard(temp);
         //blank red card value 
     }
     if(choice == 'b' || choice == 'B'){
-        Card temp("101");
+        Card temp("B ");
         displayCard(temp);
         //blank blue card value 
     }
     if(choice == 'g' || choice == 'G'){
-        Card temp("102");
+        Card temp("G ");
         displayCard(temp);
         //blank green card value 
     }
     if(choice == 'y' || choice == 'Y'){
-        Card temp("103");
+        Card temp("Y ");
         displayCard(temp);
         //blank yellow card value 
     }
