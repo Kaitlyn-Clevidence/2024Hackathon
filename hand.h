@@ -15,16 +15,17 @@ class Hand{
 
         void setFirstCard(Card*);
         void setLastCard(Card*);
-        //no set num cards bc incremented in 
+        void setNumCardsInHand(int);
+
         void addCardToHand(Card);
-        void deleteCardFromHand(Card);
+        void deleteCardFromHand(int i);
 
         ~Hand();
-        Hand* operator=(const Hand&);
+        Hand operator=(const Hand&);
 };
 
 //going to need
 //player hand
 //computer hand
 //availible hand
-//discard hand - last card in discard hand is the card being played against
+//discard hand - last card in discard hand is the card being played againsts

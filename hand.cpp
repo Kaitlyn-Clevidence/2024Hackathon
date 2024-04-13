@@ -13,14 +13,14 @@ Hand::Hand(Card* f, Card* l, int n){
     }
     Card* temp = f;
     firstCard = lastCard = new Card;
-    firstCard->setName(temp->getName());
+    firstCard->setValue(temp->getValue());
     firstCard->setNextCard(nullptr);
 
     temp = temp->getNextCard();
     while(temp != nullptr){
         lastCard->setNextCard(new Card);
         lastCard = lastCard->getNextCard();
-        lastCard->setName(temp->getName());
+        lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }
@@ -33,14 +33,14 @@ Hand::Hand(const Hand& rhs){
     }
     Card* temp = rhs.firstCard;
     firstCard = lastCard = new Card;
-    firstCard->setName(temp->getName());
+    firstCard->setValue(temp->getValue());
     firstCard->setNextCard(nullptr);
 
     temp = temp->getNextCard();
     while(temp != nullptr){
         lastCard->setNextCard(new Card);
         lastCard = lastCard->getNextCard();
-        lastCard->setName(temp->getName());
+        lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }
@@ -62,7 +62,9 @@ void Hand::setFirstCard(Card* f){
 void Hand::setLastCard(Card* l){
     lastCard = l; 
 }
-//no set num cards bc incremented in 
+void Hand::setNumCardsInHand(int n){
+    numCardsInHand = n;
+}
 void Hand::addCardToHand(Card c){
     Card* temp = new Card(c);
     if(firstCard == nullptr){
@@ -75,10 +77,9 @@ void Hand::addCardToHand(Card c){
     lastCard->setNextCard(nullptr);
     numCardsInHand++;
 }
-void Hand::deleteCardFromHand(Card){ 
+void Hand::deleteCardFromHand(int i){ 
     //going to have to be at specific index of the card picked by the user 
     //issue with that is that i am not sure how to get the song at that index without truncating the playlist 
-
 }
 
 Hand::~Hand(){
@@ -90,7 +91,7 @@ Hand::~Hand(){
     }
     firstCard = lastCard = nullptr;
 }
-Hand* Hand::operator=(const Hand& rhs){
+Hand Hand::operator=(const Hand& rhs){
     numCardsInHand =rhs.numCardsInHand;
     if(rhs.firstCard == nullptr){
         firstCard = lastCard = nullptr;
@@ -98,14 +99,14 @@ Hand* Hand::operator=(const Hand& rhs){
     }
     Card* temp = rhs.firstCard;
     firstCard = lastCard = new Card;
-    firstCard->setName(temp->getName());
+    firstCard->setValue(temp->getValue());
     firstCard->setNextCard(nullptr);
 
     temp = temp->getNextCard();
     while(temp != nullptr){
         lastCard->setNextCard(new Card);
         lastCard = lastCard->getNextCard();
-        lastCard->setName(temp->getName());
+        lastCard->setValue(temp->getValue());
         lastCard->setNextCard(nullptr);
         temp = temp->getNextCard();
     }

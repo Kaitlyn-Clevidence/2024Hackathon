@@ -2,7 +2,7 @@
 using namespace std; 
 
 class Card{
-    string name;
+    string value;
     Card* nextCard;
 
     public:
@@ -13,8 +13,8 @@ class Card{
         void setNextCard(Card*);
         Card* getNextCard();
 
-        void setName(string);
-        string getName();
+        void setValue(string);
+        string getValue();
 
         void displayCard(); // calls Oren's graphics 
 };

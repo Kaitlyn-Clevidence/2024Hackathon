@@ -1,12 +1,19 @@
 #include "hand.h"
-#include "hand.h"
-/*
-*
-drawCard()
+
+void drawCard(Hand current, Hand available){
+    current.addCardToHand(*available.getFirstCard());
+    available.setFirstCard(available.getFirstCard()->getNextCard());
+    //definitely a memory leak here - issue tho? 
+    //could also call available.deleteCardFromHand(0);
+    available.setNumCardsInHand(available.getNumCardsInHand() - 1);
+}
+
+//drawCard()
     //take first card of the availible hand and add it to the hand of who ever needs to draw the card 
     //reset the first card in the availible hand to the next card
     //delete the previous first card in the availible hand 
     //decrement the number of cards in the availible hand 
+/*
 playCard()
     //display chosen card
     //add chosen card to end of discard hand 
@@ -35,7 +42,7 @@ computerTurn() -
     //remove the card from the array
     //if no valid card is found, draw 1 card and switch turns 
 bool validateCard(lastCard)
-    //make sure the card is either the number, color, or wild card
+    //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
 
 
 specialCards(Card){
