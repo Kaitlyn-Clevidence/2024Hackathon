@@ -137,10 +137,16 @@ computerTurn() -
     //playFunction() 
     //remove the card from the array
     //if no valid card is found, draw 1 card and switch turns 
-bool validateCard(lastCard, chosenCard)
+
+*/
+bool validateCard(lastCard, chosenCard){
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
-
-
+    if(lastCard.getValue()[1] == chosenCard.getValue[1] || lastCard.getValue()[2] == chosenCard.getValue()[2] || chosenCard.getValue()[2] == 'W' || chosenCard.getValue()[2] == 'Y'){
+        return true;
+    }
+    return false;
+}
+/*
 specialCards(Card){
     if Card == wild values
         wild()        
