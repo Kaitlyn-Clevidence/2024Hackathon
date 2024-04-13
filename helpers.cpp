@@ -1,9 +1,14 @@
-#include "helpers.h"
+#include "hand.h"
 #include <random>
+
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
+
+void RANDOIMIZE(Hand& target){
+    RANDOIMIZE(target.getFirstCard());
+};
 void RANDOIMIZE(const Card* start){
-    Card* temp=start;
+    Card* temp = start;
     int num=0;
     string values[200];
     while(temp!=nullptr){
@@ -21,10 +26,9 @@ void RANDOIMIZE(const Card* start){
     }
     
 }
-
-void RANDOIMIZE(Hand& target){
-    RANDOIMIZE(target.getFirstCard());
-};
+void shuffleCards(Hand& target){
+    RANDOIMIZE(target);
+}
 void drawCard(Hand current, Hand available){
     current.addCardToHand(*available.getFirstCard());
     available.deleteCardFromHand(0);
@@ -68,22 +72,22 @@ void wildComputer(){
             
     if(choice == '1'){
         Card temp("R ");
-        displayCard(temp);
+        temp.displayCard();
         //blank red card value 
     }
     if(choice == '2'){
         Card temp("B ");
-        displayCard(temp);
+        temp.displayCard();
         //blank blue card value 
     }
     if(choice == '3'){
         Card temp("G ");
-        displayCard(temp);
+        temp.displayCard();
         //blank green card value 
     }
     if(choice == '4'){
         Card temp("Y ");
-        displayCard(temp);
+        temp.displayCard();
         //blank yellow card value 
     }
 }
@@ -123,22 +127,22 @@ void wild(){
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
         Card temp("R ");
-        displayCard(temp);
+        temp.displayCard();
         //blank red card value 
     }
     if(choice == 'b' || choice == 'B'){
         Card temp("B ");
-        displayCard(temp);
+        temp.displayCard();
         //blank blue card value 
     }
     if(choice == 'g' || choice == 'G'){
         Card temp("G ");
-        displayCard(temp);
+        temp.displayCard();
         //blank green card value 
     }
     if(choice == 'y' || choice == 'Y'){
         Card temp("Y ");
-        displayCard(temp);
+        temp.displayCard();
         //blank yellow card value 
     }
     //change validation 
@@ -159,8 +163,8 @@ void wildPlus4(Hand other, Hand a){
 
 void playCard(Hand hand, Hand discard, int choice){
     //display chosen card
-    discard.addCardToHand(hand.getCardatIndex(choice - 1));
-    hand.deleteCardFromHand(hand.getCardatIndex(choice - 1));
+    discard.addCardToHand(hand.getCardAtIndex(choice - 1));
+    hand.deleteCardFromHand(choice - 1);
 }
 
 bool playerTurn(Hand p,Hand np, Hand discard, Hand available, int turn){
@@ -244,8 +248,6 @@ bool checkDeck(Hand available, Hand discard){
     }
     return true;
 }
-
-
 
 void displayPlayerHand(Hand hand){
     //loop through player cards and display each of them side by side 
