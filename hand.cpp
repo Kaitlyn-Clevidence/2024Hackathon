@@ -107,7 +107,7 @@ void Hand::deleteCardFromHand(int i){
         }
         current = current->getNextCard();
         index++;
-    }
+
     Card* oneBefore = //getCardatIndex(i-1)
     Card* remove = oneBefore->getNextCard();
     oneBefore->setNextCard(remove->getNextCard());
