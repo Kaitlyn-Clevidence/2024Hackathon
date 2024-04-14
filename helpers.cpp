@@ -98,7 +98,7 @@ int wildPlusX(Hand& other, Hand& a,Card& datcard,int i){
     drawCard(other, a);}
     return wild(datcard);
 }
-void wildComputer(){
+void wildComputer(Card& datcard){
     random_device rd;
     mt19937 gen(rd());
     // Define the distribution
@@ -107,32 +107,32 @@ void wildComputer(){
     int randomNumber = dis(gen);
             
     if(randomNumber == '1'){
-        Card temp(to_string(070));
-        temp.displayACard(2, 3);
+        modifyColor(datcard,0);
+        datcard.displayACard(2, 3);
         //blank red card value 
     }
     if(randomNumber == '2'){
-        Card temp(to_string(170));
-        temp.displayACard(2, 3);
+        modifyColor(datcard,1);
+        datcard.displayACard(2, 3);
         //blank blue card value 
     }
     if(randomNumber == '3'){
-        Card temp(to_string(270));
-        temp.displayACard(2, 3);
+        modifyColor(datcard,2);
+        datcard.displayACard(2, 3);
         //blank green card value 
     }
     if(randomNumber == '4'){
-        Card temp(to_string(370));
-        temp.displayACard(2, 3);
+        modifyColor(datcard,3);
+        datcard.displayACard(2, 3);
         //blank yellow card value 
     }
 }
-void wildPlus4Computer(Hand& opposite, Hand& available){
+void wildPlus4Computer(Hand& opposite, Hand& available,Card& val){
     drawCard(opposite, available);
     drawCard(opposite, available);
     drawCard(opposite, available);
     drawCard(opposite, available);
-    wildComputer();
+    wildComputer(val);
 }
 
 void shuffleCards(Hand& target){
@@ -190,9 +190,9 @@ int checkSpecialtyCardsPlayer(Card& c, Hand& opposite, Hand& available, int turn
     return false;
 }
 
-bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int turn ){
+bool checkSpecialtyCardsComputer(Card& c, Hand& opposite, Hand& available, int turn ){
     if(getSecond(c.getValue()) == 14){
-        wildComputer();
+        wildComputer(c);
         return true;
     }
     if(getSecond(c.getValue()) == 13 || getSecond(c.getValue()) == 10){
@@ -205,7 +205,7 @@ bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int tu
         return true;
     }
     if(getSecond(c.getValue()) == 12){
-        wildPlus4Computer(opposite, available);
+        wildPlus4Computer(opposite, available,c);
         skip(turn);
         return true;
     }
@@ -214,7 +214,7 @@ bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int tu
 
 void displayChat(){
     for(int i=mewwo-1;i>mewwo-10&&i>-1;i--){
-        printf("\e[%d;%ldH\e[38;2;%d;%d;%dm",i-mewwo+15,115-mewo[i].length(),255-2.4*(mewwo-i));
+        printf("\e[%d;%ldH",i-mewwo+15,115-mewo[i].length());
         cout<<mewo[i]<<"\e[m";
     }
 };
@@ -388,7 +388,7 @@ bool computerTurn(Hand& c, Hand& nc, Hand& discard, Hand& available, int turn){
                 return true;
             }
             if(c.getNumCardsInHand() == 1){
-                cout<<"Your opponent has Uno!!"<<endl;
+                chat("COMPUTER [COMMENT]: HANDSIZE: 1");
             }
             return false;
             break;
