@@ -290,6 +290,7 @@ if(!Skip){
                     }
                 }else{
                     if(!unoCalled){
+                        checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
                         playCard(p, discard, choice, "Player 1 played a ");
                     }else{
                         chat("Player 1 said UNO while they had multiple cards.");
@@ -299,8 +300,8 @@ if(!Skip){
                         drawCard(p,available);
                     }
                 }
-                playCard(p, discard, choice, "Player 1 played a ");
-                checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
+                //playCard(p, discard, choice, "Player 1 played a ");
+                //
                 playedCard = true;
             }
             if(p.getNumCardsInHand() == 0){
