@@ -276,11 +276,11 @@ if(!Skip){
                 cout<<endl<<"Which card would you like to play? \e[s";
                 displayChat();cout<<"\e[u";
                 cin>>dathing;
-                if(dathing[0]>=38&&dathing[0]<=47){
+                if(dathing[0]>=48&&dathing[0]<=57){
                     choice=stoi(dathing);
                 }
                 if(choice==0){unoCalled=true;chat("Player 1: UNO!!!");}
-            }while((choice<1 || choice>p.getNumCardsInHand())&&!validateCard(test, p.getCardptrAtIndex(choice-1)));
+            }while((choice<1 || choice>p.getNumCardsInHand())||!validateCard(test, p.getCardptrAtIndex(choice-1)));
             Card merp = p.getCardAtIndex(choice-1);
             Card* merpTwo = &merp;
             if(validateCard(test, merpTwo)){
