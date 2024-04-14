@@ -5,6 +5,7 @@
 string mewo[500];
 int mewwo=0;
 bool unoCalled=false;
+bool Skip=false;
 //randomizing functions
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
@@ -256,6 +257,8 @@ void chat(string c){
 }
 
 bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
+    
+if(!Skip){
     Card* temp = p.getFirstCard();
     Card* test = discard.getLastCard();
     unoCalled=false;
@@ -313,9 +316,13 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
         drawCard(p, available);
     }
     return false;
+}else{
+    Skip=false;
+}
 }
 
 bool computerTurn(Hand& c, Hand& nc, Hand& discard, Hand& available, int turn){
+    if(!Skip){
     Card* temp = c.getFirstCard();
     Card* test = discard.getLastCard();
     for(int i = 0; i < c.getNumCardsInHand(); i++){
@@ -349,6 +356,7 @@ bool computerTurn(Hand& c, Hand& nc, Hand& discard, Hand& available, int turn){
     }
     drawCard(c, available);
     return false;
+    }else{Skip=false;}
 }  
 
 bool checkDeck(Hand& available, Hand& discard){
