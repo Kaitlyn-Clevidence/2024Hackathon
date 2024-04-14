@@ -78,6 +78,18 @@ void Hand::addCardToHand(Card c){
     numCardsInHand++;
 }
 
+Card* Hand::getCardptrAtIndex(int i){
+    Card* temp = firstCard;
+    int count = 0;
+    while(temp!= nullptr && count <i){
+        temp = temp->getNextCard();
+        count++;
+    }
+    if(temp == nullptr){
+        cout<<":("<<endl; 
+    }
+    return temp;
+}
 Card& Hand::getCardAtIndex(int i){
     Card* temp = firstCard;
     int count = 0;
