@@ -56,7 +56,7 @@ void displayPlayerHand(Hand& hand){
 }
 
 
-void wild(Card& datcard){
+int wild(Card& datcard){
     //prompt for color 
     char choice;
     do{
@@ -84,7 +84,7 @@ void wild(Card& datcard){
         //blank yellow card value 
     }
     //change validation 
-
+    return stoi(datcard.getValue());
 }
 int skip(int turn){
     Skip=true;
@@ -93,12 +93,10 @@ void plus2(Hand& h, Hand& a){
     drawCard(h, a );
     drawCard(h, a);
 }
-void wildPlus4(Hand& other, Hand& a,Card& datcard){
-    drawCard(other, a);
-    drawCard(other, a);    
-    drawCard(other, a);
-    drawCard(other, a);
-    wild(datcard);
+int wildPlusX(Hand& other, Hand& a,Card& datcard,int i){
+    for(int j=0;j<i;j++){
+    drawCard(other, a);}
+    return wild(datcard);
 }
 void wildComputer(){
     random_device rd;
@@ -168,9 +166,11 @@ bool validateCard(Card* lastCard, Card* chosenCard){
 }
 
 //specialty cards 
-bool checkSpecialtyCardsPlayer(Card& c, Hand& opposite, Hand& available, int turn){
+int Overreturn;
+int checkSpecialtyCardsPlayer(Card& c, Hand& opposite, Hand& available, int turn){
+    Overreturn=stoi(c.getValue());
     if(getSecond(c.getValue()) == 14){
-        wild(c);
+        Overreturn=wildPlusX(opposite, available,c,0);
         return true;
     }
     if(getSecond(c.getValue()) == 13 || getSecond(c.getValue()) == 10){
@@ -183,7 +183,7 @@ bool checkSpecialtyCardsPlayer(Card& c, Hand& opposite, Hand& available, int tur
         return true;
     }
     if(getSecond(c.getValue()) == 12){
-        wildPlus4(opposite, available,c);
+        Overreturn=wildPlusX(opposite, available,c,4);
         skip(turn);
         return true;
     }
@@ -252,6 +252,38 @@ void playCard(Hand& hand, Hand& discard, int choice, string text){
     discard.addCardToHand(hand.getCardAtIndex(choice - 1));
     hand.deleteCardFromHand(choice - 1);
 }
+void playCard(Hand& hand, Hand& discard, int choice, string text,int OVERRIDE){
+    hand.getCardAtIndex(choice-1).setValue(to_string(OVERRIDE));
+    int tempValue= stoi(hand.getCardAtIndex(choice - 1).getValue());
+    string color;
+    if(tempValue%4==0){color="Red";}
+    else if((tempValue%4)==1){color="Blue";}
+    else if((tempValue%4)==2){color="Green";}
+    else if((tempValue%4)==3){color="Yellow";}
+    string value;
+    
+    switch(getSecond(tempValue)){
+        case 0:value="0";break;
+        case 1:value="1";break;
+        case 2:value="2";break;
+        case 3:value="3";break;
+        case 4:value="4";break;
+        case 5:value="5";break;
+        case 6:value="6";break;
+        case 7:value="7";break;
+        case 8:value="8";break;
+        case 9:value="9";break;
+        case 10:value="Reverse";break;
+        case 11:value="+2";break;
+        case 12:value="Wild +4";break;
+        case 13:value="Skip";break;
+        case 14:value="Wild";break;
+    }
+    mewo[mewwo]=text+color+" "+value;
+    mewwo++;
+    discard.addCardToHand(hand.getCardAtIndex(choice - 1));
+    hand.deleteCardFromHand(choice - 1);
+}
 
 
 void chat(string c){
@@ -286,8 +318,9 @@ if(!Skip){
             if(validateCard(test, merpTwo)){
                 if(p.getNumCardsInHand()==1){
                     if(unoCalled){
-                        playCard(p, discard, choice, "Player 1 played a ");
+                        
                         checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
+                        playCard(p, discard, choice, "Player 1 played a ",Overreturn);
                     }else{
                         chat("Player 1 failed to say UNO.");
                         drawCard(p,available);
@@ -298,7 +331,7 @@ if(!Skip){
                 }else{
                     if(!unoCalled){
                         checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
-                        playCard(p, discard, choice, "Player 1 played a ");
+                        playCard(p, discard, choice, "Player 1 played a ",Overreturn);
                     }else{
                         chat("Player 1 said UNO while they had multiple cards.");
                         drawCard(p,available);
