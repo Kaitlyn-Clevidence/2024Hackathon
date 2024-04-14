@@ -239,8 +239,8 @@ void playCard(Hand& hand, Hand& discard, int choice, string text){
         case 8:value="8";break;
         case 9:value="9";break;
         case 10:value="Reverse";break;
-        case 11:value="Wild +4";break;
-        case 12:value="+2";break;
+        case 11:value="+2";break;
+        case 12:value="Wild +4";break;
         case 13:value="Skip";break;
         case 14:value="Wild";break;
     }
