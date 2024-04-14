@@ -2,7 +2,8 @@
 #include <random>
 #include <ctime>
 #include <iomanip>
-
+string mewo[500];
+int mewwo=0;
 //randomizing functions
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
