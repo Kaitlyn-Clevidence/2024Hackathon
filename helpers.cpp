@@ -25,7 +25,7 @@ void RANDOIMIZE(Card* start){
         temp=temp->getNextCard();
     }
     
-}
+}/*
 void playCard(Hand& hand, Hand& discard, int choice, string text){
     int tempValue= stoi(hand.getCardAtIndex(choice - 1).getValue());
     string color;
@@ -57,7 +57,7 @@ void playCard(Hand& hand, Hand& discard, int choice, string text){
     discard.addCardToHand(hand.getCardAtIndex(choice - 1));
     hand.deleteCardFromHand(choice - 1);
 }
-void RANDOIMIZE(Hand& target){
+*/void RANDOIMIZE(Hand& target){
     RANDOIMIZE(target.getFirstCard());
 };
 
