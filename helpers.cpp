@@ -292,7 +292,7 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
             Card merp = p.getCardAtIndex(choice-1);
             Card* merpTwo = &merp;
             if(validateCard(test, merpTwo)){
-                playCard(p, discard, choice);
+                playCard(p, discard, choice, "Player 1 played a ");
                 checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
                 playedCard = true;
             }
@@ -329,7 +329,7 @@ bool computerTurn(Hand& c, Hand& nc, Hand& discard, Hand& available, int turn){
             Card* merpTwo = &merp;
             if(validateCard(test, merpTwo)){
                 if(!checkSpecialtyCardsComputer(*merpTwo, nc, available, turn)){
-                    playCard(c, discard, randomNumber);
+                    playCard(c, discard, randomNumber,"COMPUTER [PLAY]: ");
                 }
             }
             if(c.getNumCardsInHand() == 0){
