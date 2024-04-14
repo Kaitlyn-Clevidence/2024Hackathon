@@ -5,7 +5,7 @@
 string mewo[500];
 int mewwo=0;
 bool unoCalled=false;
-bool Skip=false;
+bool Skip = false;
 //randomizing functions
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
@@ -32,6 +32,13 @@ void RANDOIMIZE(Hand& target){
     RANDOIMIZE(target.getFirstCard());
 };
 
+int getSecond(int a){
+    return a/4;
+}
+int getSecond(string a){
+    return stoi(a)/4;
+}
+
 void drawCard(Hand& current, Hand& available){
     current.addCardToHand(*available.getFirstCard());
     available.deleteCardFromHand(0);
@@ -54,8 +61,11 @@ void displayPlayerHand(Hand& hand){
     cout<<endl;
 }
 
+void modifyColor(Card& wild, int newColor){
+    wild.setValue(to_string(getSecond(stoi(wild.getValue()))*4+newColor));
+}
 
-void wild(){
+void wild(Card& c){
     //prompt for color 
     char choice;
     do{
@@ -63,89 +73,61 @@ void wild(){
         cin>>choice;
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
-        Card temp(to_string(070));
-        temp.displayACard(2, 3);
-        //blank red card value 
+        choice = 0;
+        modifyColor(c, choice);
+        c.displayACard(2, 3);
     }
     if(choice == 'b' || choice == 'B'){
-        Card temp(to_string(170));
-        temp.displayACard(2, 3);
-        //blank blue card value 
+        choice = 1;
+        modifyColor(c, choice);
+        c.displayACard(2, 3);
     }
     if(choice == 'g' || choice == 'G'){
-        Card temp(to_string(270));
-        temp.displayACard(2, 3);
-        //blank green card value 
+        choice = 2;
+        modifyColor(c, choice);
+        c.displayACard(2, 3);
     }
     if(choice == 'y' || choice == 'Y'){
-        Card temp(to_string(370));
-        temp.displayACard(2, 3);
-        //blank yellow card value 
+        choice = 3;
+        modifyColor(c, choice);
+        c.displayACard(2, 3);
     }
-    //change validation 
-
 }
-int skip(int turn){
-    Skip=true;
+void skip(){
+    Skip = true;
 }        
 void plus2(Hand& h, Hand& a){
     drawCard(h, a );
     drawCard(h, a);
 }
-void wildPlus4(Hand& other, Hand& a){
+void wildPlus4(Hand& other, Hand& a, Card c){
     drawCard(other, a);
     drawCard(other, a);    
     drawCard(other, a);
     drawCard(other, a);
-    wild();
+    wild(c);
 }
-void wildComputer(){
+void wildComputer(Card& c){
     random_device rd;
     mt19937 gen(rd());
     // Define the distribution
-    uniform_int_distribution<> dis(1, 4);
+    uniform_int_distribution<> dis(0, 3);
     // Generate a random number
     int randomNumber = dis(gen);
-            
-    if(randomNumber == '1'){
-        Card temp(to_string(070));
-        temp.displayACard(2, 3);
-        //blank red card value 
-    }
-    if(randomNumber == '2'){
-        Card temp(to_string(170));
-        temp.displayACard(2, 3);
-        //blank blue card value 
-    }
-    if(randomNumber == '3'){
-        Card temp(to_string(270));
-        temp.displayACard(2, 3);
-        //blank green card value 
-    }
-    if(randomNumber == '4'){
-        Card temp(to_string(370));
-        temp.displayACard(2, 3);
-        //blank yellow card value 
-    }
+
+    modifyColor(c, randomNumber);
+    c.displayACard(2, 3);
 }
-void wildPlus4Computer(Hand& opposite, Hand& available){
+void wildPlus4Computer(Hand& opposite, Hand& available, Card c){
     drawCard(opposite, available);
     drawCard(opposite, available);
     drawCard(opposite, available);
     drawCard(opposite, available);
-    wildComputer();
+    wildComputer(c);
 }
 
 void shuffleCards(Hand& target){
     RANDOIMIZE(target);
-}
-
-
-int getSecond(int a){
-    return a/4;
-}
-int getSecond(string a){
-    return stoi(a)/4;
 }
 
 bool validateCard(Card* lastCard, Card* chosenCard){
@@ -167,43 +149,43 @@ bool validateCard(Card* lastCard, Card* chosenCard){
 //specialty cards 
 bool checkSpecialtyCardsPlayer(Card c, Hand& opposite, Hand& available, int turn){
     if(getSecond(c.getValue()) == 14){
-        wild();
+        wild(c);
         return true;
     }
     if(getSecond(c.getValue()) == 13 || getSecond(c.getValue()) == 10){
-        skip(turn);
+        skip();
         return true;
     }
     if(getSecond(c.getValue()) == 11){
         plus2(opposite, available);
-        skip(turn);
+        skip();
         return true;
     }
     if(getSecond(c.getValue()) == 12){
-        wildPlus4(opposite, available);
-        skip(turn);
+        wildPlus4(opposite, available, c);
+        skip();
         return true;
     }
     return false;
 }
 
-bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int turn ){
+bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int turn){
     if(getSecond(c.getValue()) == 14){
-        wildComputer();
+        wildComputer(c);
         return true;
     }
     if(getSecond(c.getValue()) == 13 || getSecond(c.getValue()) == 10){
-        skip(turn);
+        skip();
         return true;
     }
     if(getSecond(c.getValue()) == 11){
         plus2(opposite, available);
-        skip(turn);
+        skip();
         return true;
     }
     if(getSecond(c.getValue()) == 12){
-        wildPlus4Computer(opposite, available);
-        skip(turn);
+        wildPlus4Computer(opposite, available, c);
+        skip();
         return true;
     }
     return false;
@@ -215,9 +197,7 @@ void displayChat(){
         cout<<mewo[i]<<"\e[m";
     }
 };
-void modifyColor(Card& wild,int newColor){
-    wild.setValue(to_string(getSecond(stoi(wild.getValue()))*4+newColor));
-}
+
 void playCard(Hand& hand, Hand& discard, int choice, string text){
     int tempValue= stoi(hand.getCardAtIndex(choice - 1).getValue());
     string color;
@@ -239,8 +219,8 @@ void playCard(Hand& hand, Hand& discard, int choice, string text){
         case 8:value="8";break;
         case 9:value="9";break;
         case 10:value="Reverse";break;
-        case 11:value="+2";break;
-        case 12:value="Wild +4";break;
+        case 11:value="Wild +4";break;
+        case 12:value="+2";break;
         case 13:value="Skip";break;
         case 14:value="Wild";break;
     }
@@ -257,107 +237,109 @@ void chat(string c){
 }
 
 bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
-    
-if(!Skip){
-    Card* temp = p.getFirstCard();
-    Card* test = discard.getLastCard();
-    unoCalled=false;
-    bool playedCard = false, specialty;
-    for(int i = 0; i < p.getNumCardsInHand(); i++){
-        //update temp as you go 
-        if(validateCard(test, temp)){//test if any cards in the hand are valid 
-            int choice;
-            displayPlayerHand(p);
-            do{
-                cout<<endl<<"Which card would you like to play? \e[s";
-                displayChat();cout<<"\e[u";
-                cin>>choice;
-                if(choice==0){unoCalled=true;chat("Player 1: UNO!!!");}
-            }while(choice<1 || choice>p.getNumCardsInHand());
-            Card merp = p.getCardAtIndex(choice-1);
-            Card* merpTwo = &merp;
-            if(validateCard(test, merpTwo)){
-                if(p.getNumCardsInHand()==1){
-                    if(unoCalled){
-                        playCard(p, discard, choice, "Player 1 played a ");
-                        checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
+    if(!Skip){
+        Card* temp = p.getFirstCard();
+        Card* test = discard.getLastCard();
+        unoCalled=false;
+        bool playedCard = false, specialty;
+        for(int i = 0; i < p.getNumCardsInHand(); i++){
+            //update temp as you go 
+            if(validateCard(test, temp)){//test if any cards in the hand are valid 
+                int choice;
+                displayPlayerHand(p);
+                do{
+                    cout<<endl<<"Which card would you like to play? \e[s";
+                    displayChat();cout<<"\e[u";
+                    cin>>choice;
+                    if(choice==0){unoCalled=true;chat("Player 1: UNO!!!");}
+                }while(choice<1 || choice>p.getNumCardsInHand());
+                Card merp = p.getCardAtIndex(choice-1);
+                Card* merpTwo = &merp;
+                if(validateCard(test, merpTwo)){
+                    if(p.getNumCardsInHand()==1){
+                        if(unoCalled){
+                            playCard(p, discard, choice, "Player 1 played a ");
+                            checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
+                        }else{
+                            chat("Player 1 failed to say UNO.");
+                            drawCard(p,available);
+                            drawCard(p,available);
+                            drawCard(p,available);
+                            drawCard(p,available);
+                        }
                     }else{
-                        chat("Player 1 failed to say UNO.");
-                        drawCard(p,available);
-                        drawCard(p,available);
-                        drawCard(p,available);
-                        drawCard(p,available);
+                        if(!unoCalled){
+                            checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
+                            playCard(p, discard, choice, "Player 1 played a ");
+                        }else{
+                            chat("Player 1 said UNO while they had multiple cards.");
+                            drawCard(p,available);
+                            drawCard(p,available);
+                            drawCard(p,available);
+                            drawCard(p,available);
+                        }
                     }
-                }else{
-                    if(!unoCalled){
-                        checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
-                        playCard(p, discard, choice, "Player 1 played a ");
-                    }else{
-                        chat("Player 1 said UNO while they had multiple cards.");
-                        drawCard(p,available);
-                        drawCard(p,available);
-                        drawCard(p,available);
-                        drawCard(p,available);
-                    }
+                    playedCard = true;
                 }
-                //playCard(p, discard, choice, "Player 1 played a ");
-                //
-                playedCard = true;
+                if(p.getNumCardsInHand() == 0){
+                    return true;
+                }
+                return false;
+                break;
             }
-            if(p.getNumCardsInHand() == 0){
-                return true;
-            }
-            return false;
-            break;
+            temp = temp->getNextCard();
         }
-        temp = temp->getNextCard();
+
+        if(!playedCard){
+            drawCard(p, available);
+        }
+        return false;
     }
-    
-    if(!playedCard){
-        drawCard(p, available);
+    else{
+        Skip = false;
+        return false;
     }
-    return false;
-}else{
-    Skip=false;
-}
 }
 
 bool computerTurn(Hand& c, Hand& nc, Hand& discard, Hand& available, int turn){
     if(!Skip){
-    Card* temp = c.getFirstCard();
-    Card* test = discard.getLastCard();
-    for(int i = 0; i < c.getNumCardsInHand(); i++){
-        if(validateCard(test, temp)){//test if any cards in the hand are valid 
-            //random from 1-getnumcardsinhand 
-            // Seed for random number generation
-            random_device rd;
-            mt19937 gen(rd());
-            // Define the distribution
-            uniform_int_distribution<> dis(1, c.getNumCardsInHand());
-            // Generate a random number
-            int randomNumber = dis(gen);
-            
-            Card merp = c.getCardAtIndex(randomNumber-1);
-            Card* merpTwo = &merp;
-            if(validateCard(test, merpTwo)){
-                if(!checkSpecialtyCardsComputer(*merpTwo, nc, available, turn)){
-                    playCard(c, discard, randomNumber,"COMPUTER [PLAY]: ");
+        Card* temp = c.getFirstCard();
+        Card* test = discard.getLastCard();
+        for(int i = 0; i < c.getNumCardsInHand(); i++){
+            if(validateCard(test, temp)){//test if any cards in the hand are valid 
+                //random from 1-getnumcardsinhand 
+                // Seed for random number generation
+                random_device rd;
+                mt19937 gen(rd());
+                // Define the distribution
+                uniform_int_distribution<> dis(1, c.getNumCardsInHand());
+                // Generate a random number
+                int randomNumber = dis(gen);
+                
+                Card merp = c.getCardAtIndex(randomNumber-1);
+                Card* merpTwo = &merp;
+                if(validateCard(test, merpTwo)){
+                    if(!checkSpecialtyCardsComputer(*merpTwo, nc, available, turn)){
+                        playCard(c, discard, randomNumber,"COMPUTER [PLAY]: ");
+                    }
                 }
+                if(c.getNumCardsInHand() == 0){
+                    return true;
+                }
+                if(c.getNumCardsInHand() == 1){
+                    cout<<"Your opponent has Uno!!"<<endl;
+                }
+                return false;
+                break;
             }
-            if(c.getNumCardsInHand() == 0){
-                return true;
-            }
-            if(c.getNumCardsInHand() == 1){
-                cout<<"Your opponent has Uno!!"<<endl;
-            }
-            return false;
-            break;
+            temp = temp->getNextCard();
         }
-        temp = temp->getNextCard();
+        drawCard(c, available);
+        return false;
+    }else{
+        Skip = false;
+        return false;
     }
-    drawCard(c, available);
-    return false;
-    }else{Skip=false;}
 }  
 
 bool checkDeck(Hand& available, Hand& discard){
