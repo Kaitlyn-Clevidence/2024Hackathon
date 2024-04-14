@@ -59,6 +59,13 @@ int main(){
     //Game logic and stuff
     system("clear");
     cout<<"Rules: "<<endl;
+    cout<<"1. Play a card that is either the same number or color as the one before"<<endl;
+    cout<<"2. If you cannot play a card draw one from the draw pile"<<endl;
+    cout<<"3. Once you have one card in your hand type 0 to 'yell' uno"<<endl;
+    cout<<"Are you ready to start('y' for yes 'n' for no): "<<;
+    char ready; 
+    cin>>ready; 
+    if(ready == 'y' || 'Y'){
 
     do{
         //isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
@@ -71,6 +78,10 @@ int main(){
             turn++;
         }
     }while(!win);
+}
+    else if(ready == 'n' || 'N'){
+        return 0; 
+}
     if(turn%2 == 1){
         cout<<"You won! Would you like to play again? ";
         cin>>userChoice;
