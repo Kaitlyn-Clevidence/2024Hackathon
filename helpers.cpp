@@ -52,13 +52,13 @@ void drawCard(Hand& current, Hand& available){
 }
 bool validateCard(Card* lastCard, Card* chosenCard){
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
-    if(lastCard->getValue()[1] == chosenCard->getValue()[1]){
+    if(stoi(lastCard->getValue())%4 == stoi(chosenCard->getValue())%4){
         return true;
     }
-    else if(lastCard->getValue()[2] == chosenCard->getValue()[2]){
+    else if(stoi(lastCard->getValue())-stoi(lastCard->getValue())%4 == stoi(chosenCard->getValue())-stoi(chosenCard->getValue())%4){
         return true;
     }
-    else if(chosenCard->getValue()[2] == 'W' || chosenCard->getValue()[2] == 'Y'){
+    else if(stoi(chosenCard->getValue())-stoi(chosenCard->getValue())%4==10||stoi(chosenCard->getValue())-stoi(chosenCard->getValue())%4==14){
         return true;
     }
     else{
@@ -66,22 +66,28 @@ bool validateCard(Card* lastCard, Card* chosenCard){
     }
     return false;
 }
+int getSecond(int a){
+    return a/4;
+}
+int getSecond(string a){
+    return stoi(a)/4;
+}
 
 //specialty cards 
 bool checkSpecialtyCardsPlayer(Card c, Hand& opposite, Hand& available, int turn){
-    if(c.getValue()[2] == 'Y'){
+    if(getSecond(c.getValue()) ==14){
         wild();
         return true;
     }
-    if(c.getValue()[2] == 'S' || c.getValue()[2] == 'R'){
+    if(getSecond(c.getValue()) ==13 || getSecond(c.getValue()) ==10){
         skip(turn);
         return true;
     }
-    if(c.getValue()[2] = '+'){
+    if(getSecond(c.getValue()) ==11){
         plus2(opposite, available);
         return true;
     }
-    if(c.getValue()[2] == 'W'){
+    if(getSecond(c.getValue()) ==12){
         wildPlus4(opposite, available);
         return true;
     }
@@ -125,19 +131,19 @@ void wildPlus4Computer(Hand& opposite, Hand& available){
     wildComputer();
 }
 bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int turn ){
-    if(c.getValue()[2] == 'Y'){
+    if(getSecond(c.getValue()) ==14){
         wildComputer();
         return true;
     }
-    if(c.getValue()[2] == 'S' || c.getValue()[2] == 'R'){
+    if(getSecond(c.getValue()) ==13 || getSecond(c.getValue()) ==10){
         skip(turn);
         return true;
     }
-    if(c.getValue()[2] = '+'){
+    if(getSecond(c.getValue()) ==11){
         plus2(opposite, available);
         return true;
     }
-    if(c.getValue()[2] == 'W'){
+    if(getSecond(c.getValue()) ==12){
         wildPlus4Computer(opposite, available);
         return true;
     }
@@ -151,7 +157,7 @@ void wild(){
         cout<<"What color would you like to pick? (R/B/G/Y) ";
         cin>>choice;
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
-    if(choice == 'r' || choice == 'R'){
+    if(choice ==10 || choice ==10){
         Card temp("R ");
         temp.displayACard(75, 18);
         //blank red card value 
@@ -166,7 +172,7 @@ void wild(){
         temp.displayACard(75, 18);
         //blank green card value 
     }
-    if(choice == 'y' || choice == 'Y'){
+    if(choice ==14 || choice ==14){
         Card temp("Y ");
         temp.displayACard(75, 18);
         //blank yellow card value 
