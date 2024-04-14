@@ -130,7 +130,7 @@ void dispCard(char a,char b,int x, int y){
         
 }
 string e;
-string getIntString(int a){
+string* getIntString(int a){
         char c,d;
         switch(a%4){
                 case 0:c='r';break;
@@ -153,10 +153,13 @@ string getIntString(int a){
                 case 11:d='+';break;
                 case 12:d='W';break;
                 case 13:d='S';break;
+                case 14:d='Y';break;
                 default:
                      d=' ';break;
-        }e=c;e+=d;
-        return e;
+        }e[0]=c;e[1]=d;
+        string* var;
+        *var=c+d;
+        return var;
 }
 #include <time.h>
 
@@ -175,7 +178,8 @@ void swap(string& a, string& b){
         string c=a;
         a=b;
         b=c;
-}void swap(int& a, int& b){
+}
+void swap(int& a, int& b){
         int c=a;
         a=b;
         b=c;
@@ -184,6 +188,7 @@ string v[200];
 int vi[200];
 string* RANDOIMIZE(string value[],const int a){
         for (int i=0;i<a;i++){
+                cout<<i<<" ";
         v[i]=value[i];
         }
         for(int i=0;i<a;i++){
@@ -217,7 +222,7 @@ int* RANDOIMIZE(int value[],const int a){
 
 }
 void dispCard(string s,int x, int y){
-        dispCard(s[0],s[1],x,y);
+        dispCard(stoi(s),x,y);
 }
 
 
