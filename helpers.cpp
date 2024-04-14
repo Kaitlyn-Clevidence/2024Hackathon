@@ -53,9 +53,6 @@ void displayPlayerHand(Hand& hand){
     cout<<endl;
 }
 
-void modifyColor(Card& wild,int newColor){
-    wild.setValue(to_string(getSecond(stoi(wild.getValue()))*4+newColor));
-}
 
 void wild(){
     //prompt for color 
@@ -217,6 +214,9 @@ void displayChat(){
         cout<<mewo[i]<<"\e[m";
     }
 };
+void modifyColor(Card& wild,int newColor){
+    wild.setValue(to_string(getSecond(stoi(wild.getValue()))*4+newColor));
+}
 void playCard(Hand& hand, Hand& discard, int choice, string text){
     int tempValue= stoi(hand.getCardAtIndex(choice - 1).getValue());
     string color;
