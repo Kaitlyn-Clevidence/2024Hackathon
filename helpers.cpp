@@ -25,6 +25,37 @@ void RANDOIMIZE(Card* start){
     }
     
 }
+void playCard(Hand& hand, Hand& discard, int choice, string text){
+    int tempValue= stoi(hand.getCardAtIndex(choice - 1).getValue());
+    string color;
+    if(tempValue%4==0){color="R";}
+    else if((tempValue%4)==1){color="B";}
+    else if((tempValue%4)==2){color="G";}
+    else if((tempValue%4)==3){color="Y";}
+    string value;
+    
+    switch(getSecond(tempValue)){
+        case 0:value="0";break;
+        case 1:value="1";break;
+        case 2:value="2";break;
+        case 3:value="3";break;
+        case 4:value="4";break;
+        case 5:value="5";break;
+        case 6:value="6";break;
+        case 7:value="7";break;
+        case 8:value="8";break;
+        case 9:value="9";break;
+        case 10:value="Reverse";break;
+        case 11:value="Wild +4";break;
+        case 12:value="+2";break;
+        case 13:value="S";break;
+        case 14:value="Wild";break;
+    }
+    mewo[mewwo]=text+color+" "+value;
+    mewwo++;
+    discard.addCardToHand(hand.getCardAtIndex(choice - 1));
+    hand.deleteCardFromHand(choice - 1);
+}
 void RANDOIMIZE(Hand& target){
     RANDOIMIZE(target.getFirstCard());
 };
@@ -219,7 +250,8 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
             int choice;
             displayPlayerHand(p);
             do{
-                cout<<endl<<"Which card would you like to play? ";
+                cout<<endl<<"Which card would you like to play? \e[s";
+                displayChat();cout<<"\e[u";
                 cin>>choice;
             }while(choice<1 || choice>p.getNumCardsInHand());
             Card merp = p.getCardAtIndex(choice-1);
