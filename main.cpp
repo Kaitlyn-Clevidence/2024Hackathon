@@ -12,6 +12,7 @@ int main(){
     Hand playerHand;
     Hand availableCards;
     
+    system("clear");
     cout << "UNO" << endl;
     do{
         cout << "Do you want to play a game (y/n)? ";
@@ -41,9 +42,9 @@ int main(){
         }
     }
 
-    RANDOIMIZE(strings,104);
+    RANDOIMIZE(strings,100);
     //actually input into the hand 
-    for(int i = 0; i < 104; i++){
+    for(int i = 0; i < 100; i++){
         //string values = to_string(strings[i]);
 
         Card temp(to_string(strings[i]));
@@ -66,10 +67,10 @@ int main(){
     char ready; 
     cin>>ready; 
     if(ready == 'y' || 'Y'){
-        system("clear");
         do{
             //isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
-            discard.getLastCard()->displayACard(4,3);
+            system("clear");
+            discard.getLastCard()->displayACard(2,3);
             if(turn%2==0){
                 win = playerTurn(player, computer, discard, available, turn);
                 turn++;

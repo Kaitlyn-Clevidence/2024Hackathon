@@ -38,11 +38,11 @@ void displayPlayerHand(Hand& hand){
     Card* currentCard = hand.getFirstCard();
     int location=0;
     while(currentCard != nullptr){
-        currentCard->displayACard(9,location*5+3);
+        currentCard->displayACard(6,location*5+3);
         currentCard = currentCard->getNextCard();
         location++;
     }
-    cout<<"\e[m\e[13;1H";
+    cout<<"\e[m\e[10;1H";
     for(int i = 0; i< hand.getNumCardsInHand(); i++){
         cout<<"    "<<i+1;
     }
@@ -57,22 +57,22 @@ void wild(){
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
         Card temp("R ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank red card value 
     }
     if(choice == 'b' || choice == 'B'){
         Card temp("B ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank blue card value 
     }
     if(choice == 'g' || choice == 'G'){
         Card temp("G ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank green card value 
     }
     if(choice == 'y' || choice == 'Y'){
         Card temp("Y ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank yellow card value 
     }
     //change validation 
@@ -102,22 +102,22 @@ void wildComputer(){
             
     if(randomNumber == '1'){
         Card temp("R ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank red card value 
     }
     if(randomNumber == '2'){
         Card temp("B ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank blue card value 
     }
     if(randomNumber == '3'){
         Card temp("G ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank green card value 
     }
     if(randomNumber == '4'){
         Card temp("Y ");
-        temp.displayACard(5, 3);
+        temp.displayACard(2, 3);
         //blank yellow card value 
     }
 }
@@ -181,7 +181,7 @@ bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int tu
         wildComputer();
         return true;
     }
-    if(getSecond(c.getValue()) == 17 || getSecond(c.getValue()) == 10){
+    if(getSecond(c.getValue()) == 13 || getSecond(c.getValue()) == 10){
         skip(turn);
         return true;
     }
@@ -204,23 +204,22 @@ void playCard(Hand& hand, Hand& discard, int choice){
 bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
     Card* temp = p.getFirstCard();
     Card* test = discard.getLastCard();
-    Card* temp2=p.getFirstCard();    
-
+    bool playedCard = false, specialty;
     for(int i = 0; i < p.getNumCardsInHand(); i++){
         //update temp as you go 
         if(validateCard(test, temp)){//test if any cards in the hand are valid 
             int choice;
             displayPlayerHand(p);
             do{
-                cout<<"Which card would you like to play? ";
+                cout<<endl<<"Which card would you like to play? ";
                 cin>>choice;
             }while(choice<1 || choice>p.getNumCardsInHand());
             Card merp = p.getCardAtIndex(choice-1);
             Card* merpTwo = &merp;
             if(validateCard(test, merpTwo)){
-                if(!checkSpecialtyCardsPlayer(*merpTwo, np, available, turn)){
-                    playCard(p, discard, choice);
-                }
+                checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
+                playCard(p, discard, choice);
+                playedCard = true;
             }
             if(p.getNumCardsInHand() == 0){
                 return true;
@@ -230,7 +229,10 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
         }
         temp = temp->getNextCard();
     }
-    drawCard(p, available);
+    
+    if(!playedCard){
+        drawCard(p, available);
+    }
     return false;
 }
 
