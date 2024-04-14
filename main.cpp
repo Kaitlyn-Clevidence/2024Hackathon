@@ -66,7 +66,7 @@ int main(){
     cout<<"Are you ready to start('y' for yes 'n' for no): ";
     char ready; 
     cin>>ready; 
-    if(ready == 'y' || 'Y'){
+    if(ready == 'y' || ready =='Y'){
         do{
             //isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
             system("clear");
@@ -88,7 +88,7 @@ int main(){
             }
         }
     }
-    else if(ready == 'n' || 'N'){
-        return 0; 
+    else if(ready == 'n' || ready == 'N'){
+        return 0;
     }
 }
