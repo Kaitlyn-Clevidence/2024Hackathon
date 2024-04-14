@@ -1,6 +1,5 @@
 #include "helpers.cpp"
 #include "DrawCard.cpp"
-//extern string getIntString(int);
 
 int main(){
     Hand available, discard, player, computer;
@@ -45,17 +44,14 @@ int main(){
     RANDOIMIZE(strings,104);
     //actually input into the hand 
     for(int i = 0; i < 104; i++){
-        //string values = getIntString(strings[i]);
+        //string values = to_string(strings[i]);
 
         Card temp(to_string(strings[i]));
         available.addCardToHand(temp);
-        //available.getLastCard()->setValue(*getIntString(strings[i]));
     }
     //Add 7 cards to both the player and computer hands
     for(int j = 0; j<7;j++){
-        cout<<"player"<<endl;
         drawCard(player, available);
-        cout<<"Computer"<<endl;
         drawCard(computer, available);
     }
 
@@ -63,23 +59,35 @@ int main(){
     //Game logic and stuff
     system("clear");
     cout<<"Rules: "<<endl;
-
-    do{
-        //isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
-        if(turn%2==0){
-            win = playerTurn(player, computer, discard, available, turn);
-            turn++;
+    cout<<"1. Play a card that is either the same number or color as the one before"<<endl;
+    cout<<"2. If you cannot play a card draw one from the draw pile"<<endl;
+    cout<<"3. Once you have one card in your hand type 0 to 'yell' uno"<<endl;
+    cout<<"Are you ready to start('y' for yes 'n' for no): ";
+    char ready; 
+    cin>>ready; 
+    if(ready == 'y' || 'Y'){
+        system("clear");
+        do{
+            //isUnoCalled = unoCalled(numCards, isUnoCalled, playerHand, availableCards);
+            discard.getLastCard()->displayACard(4,3);
+            if(turn%2==0){
+                win = playerTurn(player, computer, discard, available, turn);
+                turn++;
+            }
+            else{
+                win = computerTurn(computer, player, discard, available, turn);
+                turn++;
+            }
+        }while(!win);
+        if(turn%2 == 1){
+            cout<<"You won! Would you like to play again? ";
+            cin>>userChoice;
+            if(userChoice != 'y' || userChoice != 'Y'){
+                return 0;
+            }
         }
-        else{
-            win = computerTurn(computer, player, discard, available, turn);
-            turn++;
-        }
-    }while(!win);
-    if(turn%2 == 1){
-        cout<<"You won! Would you like to play again? ";
-        cin>>userChoice;
-        if(userChoice != 'y' || userChoice != 'Y'){
-            return 0;
-        }
+    }
+    else if(ready == 'n' || 'N'){
+        return 0; 
     }
 }

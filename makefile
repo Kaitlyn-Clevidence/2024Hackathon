@@ -1,5 +1,5 @@
 game: main.o hand.o card.o DrawCard.o
-	g++ -o game main.o hand.o card.o DrawCard.o -g
+	g++ -o game main.o hand.o card.o -g
 
 main.o: hand.h card.h main.cpp
 	g++ -c main.cpp -g

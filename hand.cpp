@@ -74,7 +74,7 @@ void Hand::addCardToHand(Card c){
         lastCard->setNextCard(temp);
         lastCard = temp;
     }
-    //lastCard->setNextCard(nullptr);
+    lastCard->setNextCard(nullptr);
     numCardsInHand++;
 }
 
