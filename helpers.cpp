@@ -1,6 +1,7 @@
 #include "hand.h"
 #include <random>
 #include <ctime>
+#include <iomanip>
 
 //randomizing functions
 extern string* RANDOIMIZE(string value[],const int a);
@@ -44,7 +45,8 @@ void displayPlayerHand(Hand& hand){
     }
     cout<<"\e[m\e[10;1H";
     for(int i = 0; i< hand.getNumCardsInHand(); i++){
-        cout<<"    "<<i+1;
+        cout<<setw(5);
+        cout<<i+1;
     }
     cout<<endl;
 }
@@ -56,22 +58,22 @@ void wild(){
         cin>>choice;
     }while(choice != 'r' && choice != 'R' && choice!= 'b' &&choice != 'B' && choice != 'g' && choice!= 'G' &&choice != 'Y' && choice != 'y');
     if(choice == 'r' || choice == 'R'){
-        Card temp("R ");
+        Card temp(to_string(070));
         temp.displayACard(2, 3);
         //blank red card value 
     }
     if(choice == 'b' || choice == 'B'){
-        Card temp("B ");
+        Card temp(to_string(170));
         temp.displayACard(2, 3);
         //blank blue card value 
     }
     if(choice == 'g' || choice == 'G'){
-        Card temp("G ");
+        Card temp(to_string(270));
         temp.displayACard(2, 3);
         //blank green card value 
     }
     if(choice == 'y' || choice == 'Y'){
-        Card temp("Y ");
+        Card temp(to_string(370));
         temp.displayACard(2, 3);
         //blank yellow card value 
     }
@@ -101,22 +103,22 @@ void wildComputer(){
     int randomNumber = dis(gen);
             
     if(randomNumber == '1'){
-        Card temp("R ");
+        Card temp(to_string(070));
         temp.displayACard(2, 3);
         //blank red card value 
     }
     if(randomNumber == '2'){
-        Card temp("B ");
+        Card temp(to_string(170));
         temp.displayACard(2, 3);
         //blank blue card value 
     }
     if(randomNumber == '3'){
-        Card temp("G ");
+        Card temp(to_string(270));
         temp.displayACard(2, 3);
         //blank green card value 
     }
     if(randomNumber == '4'){
-        Card temp("Y ");
+        Card temp(to_string(370));
         temp.displayACard(2, 3);
         //blank yellow card value 
     }
@@ -133,6 +135,14 @@ void shuffleCards(Hand& target){
     RANDOIMIZE(target);
 }
 
+
+int getSecond(int a){
+    return a/4;
+}
+int getSecond(string a){
+    return stoi(a)/4;
+}
+
 bool validateCard(Card* lastCard, Card* chosenCard){
     //make sure the card is either the number (in value), color (in value), or wild card (is a set of values)
     if(stoi(lastCard->getValue())%4 == stoi(chosenCard->getValue())%4){
@@ -141,7 +151,7 @@ bool validateCard(Card* lastCard, Card* chosenCard){
     else if(stoi(lastCard->getValue())-stoi(lastCard->getValue())%4 == stoi(chosenCard->getValue())-stoi(chosenCard->getValue())%4){
         return true;
     }
-    else if(stoi(lastCard->getValue())-stoi(lastCard->getValue())%4 == stoi(chosenCard->getValue())-stoi(chosenCard->getValue())%4){
+    else if(getSecond(stoi(chosenCard->getValue()))==12||getSecond(stoi(chosenCard->getValue()) == 14)){
         return true;
     }
     else{
@@ -149,12 +159,6 @@ bool validateCard(Card* lastCard, Card* chosenCard){
     }
 }
 
-int getSecond(int a){
-    return a/4;
-}
-int getSecond(string a){
-    return stoi(a)/4;
-}
 //specialty cards 
 bool checkSpecialtyCardsPlayer(Card c, Hand& opposite, Hand& available, int turn){
     if(getSecond(c.getValue()) == 14){
@@ -167,10 +171,12 @@ bool checkSpecialtyCardsPlayer(Card c, Hand& opposite, Hand& available, int turn
     }
     if(getSecond(c.getValue()) == 11){
         plus2(opposite, available);
+        skip(turn);
         return true;
     }
     if(getSecond(c.getValue()) == 12){
         wildPlus4(opposite, available);
+        skip(turn);
         return true;
     }
     return false;
@@ -187,10 +193,12 @@ bool checkSpecialtyCardsComputer(Card c, Hand& opposite, Hand& available, int tu
     }
     if(getSecond(c.getValue()) == 11){
         plus2(opposite, available);
+        skip(turn);
         return true;
     }
     if(getSecond(c.getValue()) == 12){
         wildPlus4Computer(opposite, available);
+        skip(turn);
         return true;
     }
     return false;
@@ -217,8 +225,8 @@ bool playerTurn(Hand& p, Hand& np, Hand& discard, Hand& available, int turn){
             Card merp = p.getCardAtIndex(choice-1);
             Card* merpTwo = &merp;
             if(validateCard(test, merpTwo)){
-                checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
                 playCard(p, discard, choice);
+                checkSpecialtyCardsPlayer(*merpTwo, np, available, turn);
                 playedCard = true;
             }
             if(p.getNumCardsInHand() == 0){
