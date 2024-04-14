@@ -53,8 +53,8 @@ void displayPlayerHand(Hand& hand){
     cout<<endl;
 }
 
-void modifyColor(){
-    
+void modifyColor(Card& wild,int newColor){
+    wild.setValue(to_string(getSecond(stoi(wild.getValue()))*4+newColor));
 }
 
 void wild(){
