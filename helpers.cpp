@@ -157,7 +157,9 @@ bool validateCard(Card* lastCard, Card* chosenCard){
     else if(stoi(lastCard->getValue())-stoi(lastCard->getValue())%4 == stoi(chosenCard->getValue())-stoi(chosenCard->getValue())%4){
         return true;
     }
-    else if(getSecond(stoi(chosenCard->getValue()))==12||getSecond(stoi(chosenCard->getValue()) == 14)){
+    else if(getSecond(stoi(chosenCard->getValue()))==12){
+        return true;
+    }else if(getSecond(stoi(chosenCard->getValue()) == 14)){
         return true;
     }
     else{
@@ -267,14 +269,18 @@ if(!Skip){
     for(int i = 0; i < p.getNumCardsInHand(); i++){
         //update temp as you go 
         if(validateCard(test, temp)){//test if any cards in the hand are valid 
-            int choice;
+            int choice=-1;
+            string dathing;
             displayPlayerHand(p);
             do{
                 cout<<endl<<"Which card would you like to play? \e[s";
                 displayChat();cout<<"\e[u";
-                cin>>choice;
+                cin>>dathing;
+                if(dathing[0]>=38&&dathing[0]<=47){
+                    choice=stoi(dathing);
+                }
                 if(choice==0){unoCalled=true;chat("Player 1: UNO!!!");}
-            }while(choice<1 || choice>p.getNumCardsInHand());
+            }while((choice<1 || choice>p.getNumCardsInHand())&&!validateCard(test, p.getCardptrAtIndex(choice-1)));
             Card merp = p.getCardAtIndex(choice-1);
             Card* merpTwo = &merp;
             if(validateCard(test, merpTwo)){
