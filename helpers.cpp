@@ -86,7 +86,7 @@ void wild(){
 
 }
 int skip(int turn){
-    return turn + 1;
+    Skip=true;
 }        
 void plus2(Hand& h, Hand& a){
     drawCard(h, a );
