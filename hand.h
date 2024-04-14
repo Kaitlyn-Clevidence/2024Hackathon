@@ -15,7 +15,7 @@ class Hand{
 
         void setFirstCard(Card*);
         void setLastCard(Card*);
-
+        Card* getCardptrAtIndex(int);
         Card& getCardAtIndex(int i);
         void addCardToHand(Card);
         void deleteCardFromHand(int i);
