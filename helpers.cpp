@@ -4,6 +4,7 @@
 #include <iomanip>
 string mewo[500];
 int mewwo=0;
+bool unoCalled=false;
 //randomizing functions
 extern string* RANDOIMIZE(string value[],const int a);
 extern int* RANDOIMIZE(int value[],const int a);
@@ -360,25 +361,4 @@ bool checkDeck(Hand& available, Hand& discard){
         return false;
     }
     return true;
-}
-
-bool unoCalled(int numCards, bool isUnoCalled, Hand& p, Hand& available){
-    if(numCards == 1){
-        clock_t start = clock();
-        while ((clock() - start) / CLOCKS_PER_SEC < 10 && !isUnoCalled){
-            char uno;
-            cin >> uno; 
-            if(uno = '0'){
-                isUnoCalled = true; 
-            }
-        }
-        if(numCards == 1 && !isUnoCalled){
-            isUnoCalled = true;
-            cout << "You didn't say you have uno!!" << endl;
-            for (int i = 0; i < 4; i++) {
-                drawCard(p, available);
-            }
-        }
-    }
-    return isUnoCalled; 
 }
